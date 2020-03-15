@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/register"
-            tools:ignore="MissingConstraints"
+
             tools:layout_editor_absoluteX="176dp"
             tools:layout_editor_absoluteY="85dp" />
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRegistrationTitile"
             android:hint="@string/name"
-            tools:ignore="MissingConstraints" />
+             />
 
         <EditText
             android:id="@+id/etPassword"
