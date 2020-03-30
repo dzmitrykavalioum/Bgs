@@ -22,11 +22,11 @@
 
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/etLoginR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRegistrationTitile"
-            android:hint="@string/name"
+            android:hint="@string/login"
              />
 
         <EditText
@@ -50,7 +50,7 @@
             android:id="@+id/etAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etName"
+            android:layout_below="@+id/etLoginR"
             android:hint="@string/age"
             android:inputType="numberDecimal"
             tools:ignore="MissingConstraints" />
