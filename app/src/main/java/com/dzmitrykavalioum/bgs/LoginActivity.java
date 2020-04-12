@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dzmitrykavalioum.bgs.model.UserResponse;
-import com.dzmitrykavalioum.bgs.service.UserApi;
+import com.dzmitrykavalioum.bgs.service.NetworkService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,8 +20,8 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String KEY_LOGIN = "LOGIN";
-    private static final String KEY_PASSWORD = "PASSWORD";
+    public static final String KEY_LOGIN = "LOGIN";
+    public static final String KEY_PASSWORD = "PASSWORD";
     private static final String KEY_USER_RESPONCE = "USER_RESPONCE";
     private EditText username_et;
     private EditText password_et;
@@ -48,18 +48,27 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 login = username_et.getText().toString();
                 password = password_et.getText().toString();
-                Call<UserResponse> user = UserApi.users().signIn(login, password);
-                Log.i("et ", login+ " " + password);
+
+                Call<UserResponse> user = NetworkService.users().signIn(login, password);
+                Log.i("et ", login + " " + password);
                 user.enqueue(new Callback<UserResponse>() {
                     @Override
                     public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                         UserResponse userResponse = response.body();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
-                        startActivity(intent);
+                        if (userResponse.getLogin() != null) {
 
-                        Log.i("response", response.body().getLogin() + " " + response.body().getPassword());
-                        Log.i("resronse", userResponse.getPassword()+"___");
+                            Log.i("response", userResponse.getLogin() + " " + userResponse.getPassword()+ " id = " +userResponse.getId());
+
+
+                            //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, NavBotActivity.class);
+                            intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
+
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Login or password not valid", Toast.LENGTH_SHORT).show();
+                        }
+
 
                     }
 

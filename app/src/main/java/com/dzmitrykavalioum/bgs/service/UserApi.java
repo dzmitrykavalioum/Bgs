@@ -1,24 +1,34 @@
 package com.dzmitrykavalioum.bgs.service;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.dzmitrykavalioum.bgs.model.UserResponse;
 
-public class UserApi {
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Query;
 
-    static UserJ instance;
+//http://localhost:8080/mobile/sign_in/111&111
 
-    static {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.42:8080/mobile/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        instance = retrofit.create(UserJ.class);
-    }
+public interface UserApi {
 
-    private UserApi() {
-    }
+//    @GET("sign_in/{login}&{password}")
+//    Call<UserResponse> signIn(@Path("login") String login, @Path ("password") String password);
 
-    public static UserJ users() {
-        return instance;
-    }
+    @GET("user")
+    Call<UserResponse> signIn(@Query("login") String login, @Query("password") String password);
+
+    @POST("user")
+    Call<UserResponse> registration(@Body UserResponse userResponse);
+//
+//    @POST("registration")
+//    public Call<UserResponse> registration(@Body UserResponse userResponse);
+
+    @PUT("user")
+    Call<UserResponse> update(@Query("id") int id, @Body UserResponse changedUser);
+
+    //  @DELETE ("user")
+
+
 }

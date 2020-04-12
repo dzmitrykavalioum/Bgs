@@ -1,16 +1,16 @@
-package com.dzmitrykavalioum.bgs.ui.slideshow;
+package com.dzmitrykavalioum.bgs.ui.myfriends;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class MyFriendsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public MyFriendsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is dashboard fragment");
     }
 
     public LiveData<String> getText() {

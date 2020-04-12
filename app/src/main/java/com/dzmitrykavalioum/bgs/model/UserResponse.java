@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 public class UserResponse implements Serializable {
 
     @SerializedName("@userId")
@@ -19,21 +20,63 @@ public class UserResponse implements Serializable {
     @SerializedName("password")
     @Expose
     private String password;
-    @SerializedName("age")
+    @SerializedName("dateOfBirth")
     @Expose
-    private Integer age;
+    private String dateOfBirth;
     @SerializedName("location")
     @Expose
     private String location;
     @SerializedName("rating")
     @Expose
     private Integer rating;
+    @SerializedName("isActive")
+    @Expose
+    private Boolean isActive;
     @SerializedName("gameCollection")
     @Expose
-    private List<Object> gameCollection = null;
+    private List<GameCollection> gameCollection = null;
     @SerializedName("meetingSet")
     @Expose
     private List<Object> meetingSet = null;
+    @SerializedName("createdMeets")
+    @Expose
+    private List<Object> createdMeets = null;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public UserResponse() {
+    }
+
+    /**
+     *
+     * @param password
+     * @param createdMeets
+     * @param gameCollection
+     * @param rating
+     * @param dateOfBirth
+     * @param location
+     * @param id
+     * @param login
+     * @param isActive
+     * @param userId
+     * @param meetingSet
+     */
+    public UserResponse(Integer userId, Integer id, String login, String password, String dateOfBirth, String location, Integer rating, Boolean isActive, List<GameCollection> gameCollection, List<Object> meetingSet, List<Object> createdMeets) {
+        super();
+        this.userId = userId;
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.location = location;
+        this.rating = rating;
+        this.isActive = isActive;
+        this.gameCollection = gameCollection;
+        this.meetingSet = meetingSet;
+        this.createdMeets = createdMeets;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -67,12 +110,12 @@ public class UserResponse implements Serializable {
         this.password = password;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getLocation() {
@@ -91,11 +134,19 @@ public class UserResponse implements Serializable {
         this.rating = rating;
     }
 
-    public List<Object> getGameCollection() {
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public List<GameCollection> getGameCollection() {
         return gameCollection;
     }
 
-    public void setGameCollection(List<Object> gameCollection) {
+    public void setGameCollection(List<GameCollection> gameCollection) {
         this.gameCollection = gameCollection;
     }
 
@@ -107,9 +158,17 @@ public class UserResponse implements Serializable {
         this.meetingSet = meetingSet;
     }
 
+    public List<Object> getCreatedMeets() {
+        return createdMeets;
+    }
+
+    public void setCreatedMeets(List<Object> createdMeets) {
+        this.createdMeets = createdMeets;
+    }
+
+//    @Override
+//    public String toString() {
+//        return new ToStringBuilder(this).append("userId", userId).append("id", id).append("login", login).append("password", password).append("dateOfBirth", dateOfBirth).append("location", location).append("rating", rating).append("isActive", isActive).append("gameCollection", gameCollection).append("meetingSet", meetingSet).append("createdMeets", createdMeets).toString();
+//    }
+
 }
-
-
-
-
-

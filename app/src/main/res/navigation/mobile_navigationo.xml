@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_my_games">
+
+    <fragment
+        android:id="@+id/nav_my_games"
+        android:name="com.dzmitrykavalioum.bgs.ui.mygameso.MyGameFragment"
+        android:label="@string/menu_my_games"
+        tools:layout="@layout/fragment_home_old" />
+
+    <fragment
+        android:id="@+id/nav_my_friends"
+        android:name="com.dzmitrykavalioum.bgs.ui.galleryo.GalleryFragment"
+        android:label="@string/menu_my_friends"
+        tools:layout="@layout/fragment_gallery_old" />
+
+    <fragment
+        android:id="@+id/nav_games"
+        android:name="com.dzmitrykavalioum.bgs.ui.slideshowo.SlideshowFragment"
+        android:label="@string/menu_games"
+        tools:layout="@layout/fragment_slideshow_old" />
+
+    <fragment
+        android:id="@+id/nav_tools"
+        android:name="com.dzmitrykavalioum.bgs.ui.toolso.ToolsFragment"
+        android:label="@string/menu_tools"
+        tools:layout="@layout/fragment_tools" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.dzmitrykavalioum.bgs.ui.shareo.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share_old" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="com.dzmitrykavalioum.bgs.ui.sendo.SendFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_send_old" />
+</navigation>

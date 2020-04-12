@@ -33,12 +33,23 @@
     <string name="enter_password">enter password</string>
     <string name="log_in">LOG IN</string>
     <string name="register">REGISTER</string>
-    <string name="registraion">Registration</string>
+    <string name="registration">Registration</string>
     <string name="name">Name</string>
     <string name="age">Age</string>
     <string name="location">Location</string>
     <string name="save">Save</string>
     <string name="exit">Exit</string>
     <string name="login">Login</string>
+    <string name="menu_my_friends">My friends</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_head">HeadActivity</string>
+    <string name="title_activity_nav_bot">NavBotActivity</string>
+    <string name="menu_messages">Messages</string>
+    <string name="title">Title</string>
+    <string name="rating">Rating</string>
+    <string name="delete">Delete</string>
 
 </resources>

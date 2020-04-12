@@ -2,6 +2,7 @@ package com.dzmitrykavalioum.bgs;
 
 import android.os.Bundle;
 
+import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -20,15 +21,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private TextView tcMain1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -44,13 +48,22 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.nav_my_games, R.id.nav_my_friends, R.id.nav_games,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View v = navigationView.getHeaderView(0);
+        tcMain1 = (TextView) v.findViewById(R.id.tvMain1);
+        Bundle arguments = getIntent().getExtras();
+        UserResponse userResponse;
+        if (arguments != null) {
+            userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
+            tcMain1.setText(userResponse.getLogin());
+        }
 
     }
 

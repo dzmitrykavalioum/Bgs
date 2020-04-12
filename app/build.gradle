@@ -44,15 +44,14 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation  group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
-     // https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    // https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
     implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
     compileOnly 'com.google.dagger:dagger:2.27'
 
     annotationProcessor 'com.google.dagger:dagger-compiler:2.27'
-
 
 
     testImplementation 'junit:junit:4.12'

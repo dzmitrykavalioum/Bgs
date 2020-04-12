@@ -1,16 +1,16 @@
-package com.dzmitrykavalioum.bgs.ui.tools;
+package com.dzmitrykavalioum.bgs.ui.games;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ToolsViewModel extends ViewModel {
+public class GamesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ToolsViewModel() {
+    public GamesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is tools fragment");
+        mText.setValue("This is notifications fragment");
     }
 
     public LiveData<String> getText() {
