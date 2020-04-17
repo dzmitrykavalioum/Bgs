@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ public class GameAdapter extends BaseAdapter {
         GameCollection game = getGamw(i);
         ((TextView)view.findViewById(R.id.tv_title_game)).setText(game.getTitle());
         ((TextView)view.findViewById(R.id.tv_rating_game)).setText(game.getRating().toString());
+        Button btn_delete = (Button)view.findViewById(R.id.btn_delete_game);
 
         return view;
 

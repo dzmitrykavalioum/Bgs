@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent1 = new Intent(getApplicationContext(), LoginActivity.class);
 //                try {
 //                    dateOfBirth = Integer.parseInt(etAge.getText().toString());
 //
@@ -66,15 +66,26 @@ public class RegisterActivity extends AppCompatActivity {
                 userResponse.setDateOfBirth(dateOfBirth);
                 Log.i("registration response",userResponse.toString());
                 Call<UserResponse> user = NetworkService.users().registration(userResponse);
+//                user.enqueue(new Callback<String>() {
+//                    @Override
+//                    public void onResponse(Call<String> call, Response<String> response) {
+//                        Log.i("registration response", response.body());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<String> call, Throwable t) {
+//                        Log.i("registration response ", t.getMessage());
+//                    }
+//                });
                 user.enqueue(new Callback<UserResponse>() {
                     @Override
                     public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-//                        Log.i("registration response ", response.body().toString());
+                        Log.i("registration response ", response.body().getLogin());
                     }
 
                     @Override
                     public void onFailure(Call<UserResponse> call, Throwable t) {
-  //                      Log.i("registration respomse ", t.getMessage());
+                       Log.i("registration response ", t.getMessage());
                     }
                 });
                 startActivity(intent1);

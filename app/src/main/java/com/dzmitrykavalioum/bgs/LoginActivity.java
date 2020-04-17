@@ -57,35 +57,27 @@ public class LoginActivity extends AppCompatActivity {
                         UserResponse userResponse = response.body();
                         if (userResponse.getLogin() != null) {
 
-                            Log.i("response", userResponse.getLogin() + " " + userResponse.getPassword()+ " id = " +userResponse.getId());
-
-
-                            //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Log.i("response", userResponse.getLogin() + " " + userResponse.getPassword() + " id = " + userResponse.getId());
                             Intent intent = new Intent(LoginActivity.this, NavBotActivity.class);
                             intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
-
                             startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Login or password not valid", Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
 
                     @Override
                     public void onFailure(Call<UserResponse> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        UserResponse userResponse = new UserResponse();
+                        userResponse.setLogin(login);
+                        userResponse.setPassword(password);
+                        Intent intent = new Intent(LoginActivity.this, NavBotActivity.class);
+                        intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
+                        startActivity(intent);
                     }
                 });
 
-
-//                if (username_et.getText().toString().equals("admin") &&
-//                        password_et.getText().toString().equals("admin")) {
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "access denied", Toast.LENGTH_SHORT).show();
-//                }
             }
 
 
@@ -96,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 login = username_et.getText().toString();
                 password = password_et.getText().toString();
-                Toast.makeText(getApplicationContext(), login + " registered", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), login + " registered", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 intent.putExtra(KEY_LOGIN, login);
                 intent.putExtra(KEY_PASSWORD, password);

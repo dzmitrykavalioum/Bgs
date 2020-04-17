@@ -1,3 +1,4 @@
+
 package com.dzmitrykavalioum.bgs.model;
 
 import java.io.Serializable;
@@ -5,7 +6,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserResponse implements Serializable {
+public class Owner implements Serializable {
 
     @SerializedName("@userId")
     @Expose
@@ -33,19 +34,19 @@ public class UserResponse implements Serializable {
     private Boolean isActive;
     @SerializedName("gameCollection")
     @Expose
-    private List<GameCollection> gameCollection = null;
+    private List<Integer> gameCollection = null;
     @SerializedName("meetingSet")
     @Expose
-    private List<Object> meetingSet = null;
+    private List<Integer> meetingSet = null;
     @SerializedName("createdMeets")
     @Expose
-    private List<Object> createdMeets = null;
+    private List<Integer> createdMeets = null;
 
     /**
      * No args constructor for use in serialization
      *
      */
-    public UserResponse() {
+    public Owner() {
     }
 
     /**
@@ -62,7 +63,7 @@ public class UserResponse implements Serializable {
      * @param userId
      * @param meetingSet
      */
-    public UserResponse(Integer userId, Integer id, String login, String password, String dateOfBirth, String location, Integer rating, Boolean isActive, List<GameCollection> gameCollection, List<Object> meetingSet, List<Object> createdMeets) {
+    public Owner(Integer userId, Integer id, String login, String password, String dateOfBirth, String location, Integer rating, Boolean isActive, List<Integer> gameCollection, List<Integer> meetingSet, List<Integer> createdMeets) {
         super();
         this.userId = userId;
         this.id = id;
@@ -141,27 +142,27 @@ public class UserResponse implements Serializable {
         this.isActive = isActive;
     }
 
-    public List<GameCollection> getGameCollection() {
+    public List<Integer> getGameCollection() {
         return gameCollection;
     }
 
-    public void setGameCollection(List<GameCollection> gameCollection) {
+    public void setGameCollection(List<Integer> gameCollection) {
         this.gameCollection = gameCollection;
     }
 
-    public List<Object> getMeetingSet() {
+    public List<Integer> getMeetingSet() {
         return meetingSet;
     }
 
-    public void setMeetingSet(List<Object> meetingSet) {
+    public void setMeetingSet(List<Integer> meetingSet) {
         this.meetingSet = meetingSet;
     }
 
-    public List<Object> getCreatedMeets() {
+    public List<Integer> getCreatedMeets() {
         return createdMeets;
     }
 
-    public void setCreatedMeets(List<Object> createdMeets) {
+    public void setCreatedMeets(List<Integer> createdMeets) {
         this.createdMeets = createdMeets;
     }
 

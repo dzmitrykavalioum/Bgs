@@ -1,10 +1,10 @@
+
 package com.dzmitrykavalioum.bgs.model;
 
 import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 
 public class GameCollection implements Serializable {
 
@@ -38,12 +38,12 @@ public class GameCollection implements Serializable {
     @SerializedName("meetings")
     @Expose
     private List<Object> meetings = null;
-    @SerializedName("numberOfOwners")
-    @Expose
-    private Integer numberOfOwners;
     @SerializedName("numberOfMeetings")
     @Expose
     private Integer numberOfMeetings;
+    @SerializedName("numberOfOwners")
+    @Expose
+    private Integer numberOfOwners;
 
     /**
      * No args constructor for use in serialization
@@ -67,7 +67,7 @@ public class GameCollection implements Serializable {
      * @param numberOfMeetings
      * @param age
      */
-    public GameCollection(Integer boardGameId, Integer id, String logo, String title, Object description, Integer age, Integer rating, Boolean isActive, List<Integer> owners, List<Object> meetings, Integer numberOfOwners, Integer numberOfMeetings) {
+    public GameCollection(Integer boardGameId, Integer id, String logo, String title, Object description, Integer age, Integer rating, Boolean isActive, List<Integer> owners, List<Object> meetings, Integer numberOfMeetings, Integer numberOfOwners) {
         super();
         this.boardGameId = boardGameId;
         this.id = id;
@@ -79,8 +79,8 @@ public class GameCollection implements Serializable {
         this.isActive = isActive;
         this.owners = owners;
         this.meetings = meetings;
-        this.numberOfOwners = numberOfOwners;
         this.numberOfMeetings = numberOfMeetings;
+        this.numberOfOwners = numberOfOwners;
     }
 
     public Integer getBoardGameId() {
@@ -163,14 +163,6 @@ public class GameCollection implements Serializable {
         this.meetings = meetings;
     }
 
-    public Integer getNumberOfOwners() {
-        return numberOfOwners;
-    }
-
-    public void setNumberOfOwners(Integer numberOfOwners) {
-        this.numberOfOwners = numberOfOwners;
-    }
-
     public Integer getNumberOfMeetings() {
         return numberOfMeetings;
     }
@@ -179,13 +171,12 @@ public class GameCollection implements Serializable {
         this.numberOfMeetings = numberOfMeetings;
     }
 
-//    @Override
-//    public String toString() {
-//        return new ToStringBuilder(this).append("boardGameId",
-//                boardGameId).append("id", id).append("logo", logo).append("title", title).
-//                append("description", description).append("age", age).append("rating", rating).
-//                append("isActive", isActive).append("owners", owners).append("meetings", meetings).
-//                append("numberOfOwners", numberOfOwners).append("numberOfMeetings", numberOfMeetings).toString();
-//    }
+    public Integer getNumberOfOwners() {
+        return numberOfOwners;
+    }
+
+    public void setNumberOfOwners(Integer numberOfOwners) {
+        this.numberOfOwners = numberOfOwners;
+    }
 
 }

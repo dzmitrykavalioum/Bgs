@@ -12,9 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".GameItemActivity"></activity>
         <activity
             android:name=".NavBotActivity"
-            android:label="@string/title_activity_nav_bot"></activity>
+            android:label="@string/title_activity_nav_bot" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

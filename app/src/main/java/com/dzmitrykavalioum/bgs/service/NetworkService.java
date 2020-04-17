@@ -1,16 +1,22 @@
 package com.dzmitrykavalioum.bgs.service;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkService {
-    private static final String BASE_URL = "http://192.168.1.42:8080/mobile/";
+    private static final String BASE_URL = "http://192.168.1.42:8080/mobile/";//"http://192.168.1.64:8080/mobile/";//"http://192.168.1.115:8080/mobile/";
     static UserApi instance;
     private static Retrofit retrofit;
 
     static {
-         retrofit = new Retrofit.Builder()
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         instance = retrofit.create(UserApi.class);

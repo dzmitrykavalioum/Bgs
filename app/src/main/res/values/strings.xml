@@ -51,5 +51,6 @@
     <string name="title">Title</string>
     <string name="rating">Rating</string>
     <string name="delete">Delete</string>
+    <string name="Meetings">Meetings</string>
 
 </resources>
