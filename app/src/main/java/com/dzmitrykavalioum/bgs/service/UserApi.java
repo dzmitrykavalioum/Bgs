@@ -1,9 +1,14 @@
 package com.dzmitrykavalioum.bgs.service;
 
+import com.dzmitrykavalioum.bgs.model.GameCollection;
+import com.dzmitrykavalioum.bgs.model.Meeting;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -15,19 +20,74 @@ import retrofit2.http.Query;
 public interface UserApi {
 
 
+    //user
 
     @GET("user")
     Call<UserResponse> signIn(@Query("login") String login, @Query("password") String password);
 
     @POST("user")
-
-    Call<UserResponse> registration(@Body UserResponse userResponse);
-
+    Call<String> registration(@Body UserResponse userResponse);
 
     @PUT("user")
     Call<UserResponse> update(@Query("id") int id, @Body UserResponse changedUser);
 
-    //  @DELETE ("user")
+    //meeting
 
+    @PUT("user/meet_in")
+    Call<String> addMeeting(@Query("userId") int userId, @Query("meetId") int meetId);
+
+    @PUT("user/meet_out")
+    Call<String> leaveMeeting(@Query("userId") int userId, @Query("meetId") int meetId);
+
+    @GET("userMeetingList")
+    Call<List<Meeting>> userMeetingList(@Query("userId")  int userId);
+
+
+
+
+
+
+    //game
+
+    @GET("gameListPage")
+    Call<List<GameCollection>> unsubscrableGameList(@Query("userId") int userId);
+
+    @POST("userGameList")
+    Call<List<GameCollection>> userGameList(@Query("userId") int userId);
+
+    @GET("allGameList")
+    Call<List<GameCollection>> allGameList();
+
+    @POST("user/game")
+    Call<UserResponse> addGame(@Query("userId") int userId, @Query("gameId") int gameId);
+
+    @DELETE("user/game")
+    Call<UserResponse> deleteGame(@Query("userId") int userId, @Query("gameId") int gameId);
+
+
+
+
+    /*
+    *  @PutMapping("/user/meet_in")
+    public String addMeeting(int userId, int meetId) {
+        userService.takePartInMeeting(userId, meetId);
+        return "ok";
+    }
+
+
+    @PutMapping("/user/meet_out")
+    public String leaveMeeting(int userId, int meetId) {
+        userService.leaveMeeting(userId, meetId);
+        return "ok";
+    }
+    *
+    *
+    *
+    *    @GetMapping("/userMeetingList")
+    public List<Meeting> meetingList(int userId) {
+        User currentUser = userService.getUserById(userId);
+        return currentUser.getMeetingSet();
+    }
+    * */
 
 }

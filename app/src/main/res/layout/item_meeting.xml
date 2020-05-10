@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_creator_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="@string/creator"
+        android:layout_weight="1"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_location"
+        android:text="@string/location"
+        android:textSize="25dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_date_meeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginRight="5dp"
+        android:text="@string/date"
+        android:textSize="25dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/members"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="12dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_members_qty"
+        android:textSize="20dp"
+        android:text="0"
+        android:layout_weight="1"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_takepart_leave"
+        android:text="@string/take_part"
+        android:textSize="15dp"/>
+
+
+
+</LinearLayout>

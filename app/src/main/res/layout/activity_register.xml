@@ -51,9 +51,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etLoginR"
-            android:hint="@string/age"
-            android:inputType="numberDecimal"
-            tools:ignore="MissingConstraints" />
+            android:hint="@string/dateOfBirth"
+            android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
+            tools:ignore="Deprecated,MissingConstraints" />
 
         <Button
             android:id="@+id/btnSave"

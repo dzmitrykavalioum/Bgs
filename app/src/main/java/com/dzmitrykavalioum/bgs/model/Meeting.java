@@ -1,59 +1,72 @@
 
+
+
 package com.dzmitrykavalioum.bgs.model;
 
 import java.io.Serializable;
 import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.SimpleObjectIdResolver;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+        property = "@meetingId",
+        resolver = SimpleObjectIdResolver.class)
+
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+
+        "id",
+        "location",
+        "dateTime",
+        "creator",
+        "game",
+        "members",
+        "numberOfMembers"
+})
 public class Meeting implements Serializable {
 
-    @SerializedName("@meetingId")
-    @Expose
-    private Integer meetingId;
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("location")
-    @Expose
+
+    @JsonProperty("id")
+    private int id;
+    @JsonProperty("location")
     private String location;
-    @SerializedName("dateTime")
-    @Expose
+    @JsonProperty("dateTime")
     private String dateTime;
-    @SerializedName("creator")
-    @Expose
-    private Integer creator;
-    @SerializedName("game")
-    @Expose
-    private Integer game;
-    @SerializedName("members")
-    @Expose
-    private List<Object> members = null;
-    @SerializedName("numberOfMembers")
-    @Expose
+    @JsonProperty("creator")
+    private UserResponse creator;
+    @JsonProperty("game")
+    private GameCollection game;
+    @JsonProperty("members")
+    private List<UserResponse> members = null;
+    @JsonProperty("numberOfMembers")
     private Integer numberOfMembers;
+    private boolean inMeeting = false;
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Meeting() {
     }
 
     /**
-     *
      * @param dateTime
      * @param creator
      * @param game
      * @param numberOfMembers
      * @param members
-     * @param meetingId
+
      * @param location
      * @param id
      */
-    public Meeting(Integer meetingId, Integer id, String location, String dateTime, Integer creator, Integer game, List<Object> members, Integer numberOfMembers) {
+    public Meeting(int id, String location, String dateTime, UserResponse creator, GameCollection game, List<UserResponse> members, Integer numberOfMembers) {
         super();
-        this.meetingId = meetingId;
+
         this.id = id;
         this.location = location;
         this.dateTime = dateTime;
@@ -63,68 +76,118 @@ public class Meeting implements Serializable {
         this.numberOfMembers = numberOfMembers;
     }
 
-    public Integer getMeetingId() {
-        return meetingId;
-    }
 
-    public void setMeetingId(Integer meetingId) {
-        this.meetingId = meetingId;
-    }
 
-    public Integer getId() {
+    @JsonProperty("id")
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    @JsonProperty("id")
+    public void setId(int id) {
         this.id = id;
     }
 
+    public Meeting withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    @JsonProperty("location")
     public String getLocation() {
         return location;
     }
 
+    @JsonProperty("location")
     public void setLocation(String location) {
         this.location = location;
     }
 
+    public Meeting withLocation(String location) {
+        this.location = location;
+        return this;
+    }
+
+    @JsonProperty("dateTime")
     public String getDateTime() {
         return dateTime;
     }
 
+    @JsonProperty("dateTime")
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
-    public Integer getCreator() {
+    public Meeting withDateTime(String dateTime) {
+        this.dateTime = dateTime;
+        return this;
+    }
+
+    @JsonProperty("creator")
+    public UserResponse getCreator() {
         return creator;
     }
 
-    public void setCreator(Integer creator) {
+    @JsonProperty("creator")
+    public void setCreator(UserResponse creator) {
         this.creator = creator;
     }
 
-    public Integer getGame() {
+    public Meeting withCreator(UserResponse creator) {
+        this.creator = creator;
+        return this;
+    }
+
+    @JsonProperty("game")
+    public GameCollection getGame() {
         return game;
     }
 
-    public void setGame(Integer game) {
+    @JsonProperty("game")
+    public void setGame(GameCollection game) {
         this.game = game;
     }
 
-    public List<Object> getMembers() {
+    public Meeting withGame(GameCollection game) {
+        this.game = game;
+        return this;
+    }
+
+    @JsonProperty("members")
+    public List<UserResponse> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Object> members) {
+    @JsonProperty("members")
+    public void setMembers(List<UserResponse> members) {
         this.members = members;
     }
 
+    public Meeting withMembers(List<UserResponse> members) {
+        this.members = members;
+        return this;
+    }
+
+    @JsonProperty("numberOfMembers")
     public Integer getNumberOfMembers() {
         return numberOfMembers;
     }
 
+    @JsonProperty("numberOfMembers")
     public void setNumberOfMembers(Integer numberOfMembers) {
         this.numberOfMembers = numberOfMembers;
     }
 
+    public Meeting withNumberOfMembers(Integer numberOfMembers) {
+        this.numberOfMembers = numberOfMembers;
+        return this;
+    }
+
+    public boolean isInMeeting() {
+        return inMeeting;
+    }
+
+    public void setInMeeting(boolean inMeeting) {
+        this.inMeeting = inMeeting;
+    }
 }

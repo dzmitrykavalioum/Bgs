@@ -7,9 +7,9 @@
         android:title="@string/menu_my_games" />
 
     <item
-        android:id="@+id/item_my_friends"
+        android:id="@+id/item_my_meetings"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/menu_my_friends" />
+        android:title="@string/menu_my_meetings" />
 
     <item
         android:id="@+id/item_games"
@@ -20,5 +20,10 @@
         android:id="@+id/item_messages"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/menu_messages" />
+
+    <item
+        android:id="@+id/item_my_friends"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/menu_my_friends" />
 
 </menu>

@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_my_games" />
 
     <fragment
-        android:id="@+id/item_my_friends"
+        android:id="@+id/item_my_meetings"
         android:name="com.dzmitrykavalioum.bgs.ui.myfriends.MyFriendsFragment"
         android:label="@string/menu_my_friends"
         tools:layout="@layout/fragment_dashboard" />
@@ -21,10 +21,15 @@
         android:id="@+id/item_games"
         android:name="com.dzmitrykavalioum.bgs.ui.games.GamesFragment"
         android:label="@string/menu_games"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_game" />
     <fragment
         android:id="@+id/item_messages"
         android:name="com.dzmitrykavalioum.bgs.ui.messages.MessagesFragment"
         android:label="@string/menu_messages"
         tools:layout="@layout/messages_fragment"/>
+    <fragment
+        android:id="@+id/item_my_friends"
+        android:name="com.dzmitrykavalioum.bgs.ui.myfriends.MyFriendsFragment"
+        android:label="@string/menu_my_friends"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>
