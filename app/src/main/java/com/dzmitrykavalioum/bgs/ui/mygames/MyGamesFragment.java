@@ -48,15 +48,12 @@ public class MyGamesFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_my_games, container, false);
         listView = root.findViewById(R.id.lv_my_games_fragment);
-        TextView textView = root.findViewById(R.id.tv_mygames_name);
-//        textView.setText("Hello My games");
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             userResponse = (UserResponse) bundle.getSerializable(UserResponse.class.getSimpleName());
-//            textView.setText(userResponse.getLogin());
 
         }
-
 
         List<GameCollection> list = userResponse.getGameCollection();
         if (list != null) {

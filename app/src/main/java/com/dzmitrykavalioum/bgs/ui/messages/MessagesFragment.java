@@ -16,7 +16,7 @@ import com.dzmitrykavalioum.bgs.R;
 
 public class MessagesFragment extends Fragment {
 
-    private MessagesViewModel mViewModel;
+
 
     public static MessagesFragment newInstance() {
         return new MessagesFragment();
@@ -31,7 +31,6 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MessagesViewModel.class);
         // TODO: Use the ViewModel
     }
 

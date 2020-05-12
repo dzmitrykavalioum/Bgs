@@ -25,7 +25,7 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-//    private static final String KEY_LOGIN = "LOGIN";
+    //    private static final String KEY_LOGIN = "LOGIN";
 //    private static final String KEY_PASSWORD = "PASSWORD";
     private EditText etName;
     private EditText etDateOfBurth;
@@ -96,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                 userResponse.setPassword(etPassword.getText().toString());
                 userResponse.setLocation(etLocation.getText().toString());
                 userResponse.setDateOfBirth(dateOfBirth);
-                Log.i("registration response",userResponse.toString());
+                Log.i("registration response", userResponse.toString());
                 Call<String> user = NetworkService.users().registration(userResponse);
 //                user.enqueue(new Callback<String>() {
 //                    @Override
@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                       //Log.i("registration response ", t.getMessage());
+                        //Log.i("registration response ", t.getMessage());
                     }
                 });
                 startActivity(intent1);

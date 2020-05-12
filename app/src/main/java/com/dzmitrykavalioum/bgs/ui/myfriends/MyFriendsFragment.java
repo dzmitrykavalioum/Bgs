@@ -16,20 +16,19 @@ import com.dzmitrykavalioum.bgs.R;
 
 public class MyFriendsFragment extends Fragment {
 
-    private MyFriendsViewModel myFriendsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        myFriendsViewModel =
-                ViewModelProviders.of(this).get(MyFriendsViewModel.class);
+//        myFriendsViewModel =
+//                ViewModelProviders.of(this).get(MyFriendsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
-        myFriendsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        myFriendsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
         return root;
     }
 }

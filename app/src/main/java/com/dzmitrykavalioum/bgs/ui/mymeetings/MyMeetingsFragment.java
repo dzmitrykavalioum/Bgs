@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MyMeetingsFragment extends Fragment {
 
-    //private MyMeetingsViewModel mViewModel;
+
     private List<Meeting> meetings;
     private UserResponse userResponse;
     private ListView lv_meetings;

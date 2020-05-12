@@ -8,7 +8,19 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etLocation"
+            android:layout_marginTop="77dp"
+            android:ems="10"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/tvRegistrationTitile"
@@ -16,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/register"
-
             tools:layout_editor_absoluteX="176dp"
             tools:layout_editor_absoluteY="85dp" />
 
@@ -26,14 +37,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRegistrationTitile"
-            android:hint="@string/login"
-             />
+            android:hint="@string/login" />
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etLocation"
+            android:layout_alignEnd="@+id/etConfirmPassword"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="0dp"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword" />
@@ -51,10 +64,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etLoginR"
-            android:hint="@string/dateOfBirth"
             android:clickable="true"
             android:editable="false"
             android:focusable="false"
+            android:hint="@string/dateOfBirth"
             tools:ignore="Deprecated,MissingConstraints" />
 
         <Button
@@ -62,13 +75,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etPassword"
+            android:layout_marginTop="72dp"
             android:text="@string/save" />
+
         <Button
             android:id="@+id/btnExit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/btnSave"
+            android:layout_alignParentRight="true"
             android:text="@string/exit" />
 
     </RelativeLayout>

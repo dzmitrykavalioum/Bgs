@@ -25,7 +25,6 @@ import retrofit2.Response;
 
 public class GamesFragment extends Fragment {
 
-    //private GamesViewModel gamesViewModel;
     private UserResponse userResponse;
     private List<GameCollection> games;
     private ListView lvGames;
