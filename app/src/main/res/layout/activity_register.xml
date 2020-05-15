@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".ui.RegisterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -55,12 +55,12 @@
             android:id="@+id/etLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etAge"
+            android:layout_below="@+id/etDateOfBirth"
             android:hint="@string/location"
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/etAge"
+            android:id="@+id/etDateOfBirth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etLoginR"

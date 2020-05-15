@@ -1,4 +1,4 @@
-package com.dzmitrykavalioum.bgs;
+package com.dzmitrykavalioum.bgs.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 
@@ -28,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     //    private static final String KEY_LOGIN = "LOGIN";
 //    private static final String KEY_PASSWORD = "PASSWORD";
     private EditText etName;
-    private EditText etDateOfBurth;
+    private EditText etDateOfBirth;
     private EditText etLocation;
     private EditText etPassword;
     private Button btnSave;
@@ -44,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         context = this;
         etName = (EditText) findViewById(R.id.etLoginR);
-        etDateOfBurth = (EditText) findViewById(R.id.etAge);
+        etDateOfBirth = (EditText) findViewById(R.id.etDateOfBirth);
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -59,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
         };
-        etDateOfBurth.setOnClickListener(new View.OnClickListener() {
+        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new DatePickerDialog(context, date, myCalendar
@@ -89,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                } catch (NumberFormatException e) {
 //                    dateOfBirth = 0;
 //
-                dateOfBirth = etDateOfBurth.getText().toString();
+                dateOfBirth = etDateOfBirth.getText().toString();
                 location = etLocation.getText().toString();
                 UserResponse userResponse = new UserResponse();
                 userResponse.setLogin(etName.getText().toString());
@@ -131,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
         String myFormat = "yyyy-MM-dd";// "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        etDateOfBurth.setText(sdf.format(myCalendar.getTime()));
+        etDateOfBirth.setText(sdf.format(myCalendar.getTime()));
     }
 
 

@@ -9,28 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.dzmitrykavalioum.bgs.GameItemActivity;
+import com.dzmitrykavalioum.bgs.ui.GameItemActivity;
 import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.adapters.GameAdapter;
 import com.dzmitrykavalioum.bgs.model.GameCollection;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
-import com.dzmitrykavalioum.bgs.service.NetworkService;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MyGamesFragment extends Fragment {
 

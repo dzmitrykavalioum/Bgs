@@ -1,4 +1,4 @@
-package com.dzmitrykavalioum.bgs;
+package com.dzmitrykavalioum.bgs.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 

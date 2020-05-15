@@ -29,7 +29,7 @@ public interface UserApi {
     Call<String> registration(@Body UserResponse userResponse);
 
     @PUT("user")
-    Call<UserResponse> update(@Query("id") int id, @Body UserResponse changedUser);
+    Call<UserResponse> update(@Query("userId") int id, @Body UserResponse changedUser); //
 
     //meeting
 

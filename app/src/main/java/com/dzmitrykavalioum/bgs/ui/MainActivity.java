@@ -1,7 +1,8 @@
-package com.dzmitrykavalioum.bgs;
+package com.dzmitrykavalioum.bgs.ui;
 
 import android.os.Bundle;
 
+import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;

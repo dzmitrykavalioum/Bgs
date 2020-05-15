@@ -1,4 +1,4 @@
-package com.dzmitrykavalioum.bgs;
+package com.dzmitrykavalioum.bgs.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.adapters.MeetingAdapter;
 import com.dzmitrykavalioum.bgs.model.GameCollection;
 import com.dzmitrykavalioum.bgs.model.Meeting;
@@ -47,6 +48,7 @@ public class GameItemActivity extends AppCompatActivity {
         context = this;
         tv_game_item_title = (TextView) findViewById(R.id.tv_game_item_title);
         lvMeetings = (ListView) findViewById(R.id.lv_item_meetings);
+
         btn_del_game = (Button)findViewById(R.id.btn_del_game);
         Bundle arguments = getIntent().getExtras();
 

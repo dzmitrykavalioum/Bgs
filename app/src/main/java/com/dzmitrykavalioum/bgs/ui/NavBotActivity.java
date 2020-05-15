@@ -1,14 +1,16 @@
-package com.dzmitrykavalioum.bgs;
+package com.dzmitrykavalioum.bgs.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.ui.games.GamesFragment;
 import com.dzmitrykavalioum.bgs.ui.messages.MessagesFragment;
@@ -103,4 +105,28 @@ public class NavBotActivity extends AppCompatActivity implements BottomNavigatio
 //        super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(NavBotActivity.this, UserDataActivity.class);
+                intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
+                startActivity(intent);
+                break;
+            case R.id.action_exit:
+                exit();
+        }
+        return true;
+
+    }
+
+    private void exit() {
+        finish();
+    }
 }

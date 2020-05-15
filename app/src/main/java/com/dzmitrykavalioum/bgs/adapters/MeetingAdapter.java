@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.dzmitrykavalioum.bgs.GameItemActivity;
+import com.dzmitrykavalioum.bgs.ui.GameItemActivity;
 import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.model.Meeting;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
