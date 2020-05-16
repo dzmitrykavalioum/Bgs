@@ -42,6 +42,9 @@ public interface UserApi {
     @GET("userMeetingList")
     Call<List<Meeting>> userMeetingList(@Query("userId")  int userId);
 
+    @POST ("user/meet")
+    Call<String> createMeeting(@Query("userId") int userId, @Query("gameId") int gameId, @Body Meeting meeting);
+
 
 
 
@@ -88,6 +91,23 @@ public interface UserApi {
         User currentUser = userService.getUserById(userId);
         return currentUser.getMeetingSet();
     }
+    *
+    *     @PostMapping("/user/meet")
+    public String createMeet(int userId, int gameId, @RequestBody Meeting meet) {
+        User currentUser = userService.getUserById(userId);
+        meet.setGane(gameService.getGameById(gameId));
+        meetingService.createMeet(currentUser.getId(), meet);
+        //userService.takePartInMeeting(currentUser.getId(), meet.getId());
+        return "true";
+    }
+
+    @DeleteMapping("/user/meet")
+    public String deleteMeet(int userId, int meetId) {
+        userService.deleteMeeting(userId, meetId);
+        meetingService.removeMeet(meetId);
+        return "true";
+    }
+    *
     * */
 
 }

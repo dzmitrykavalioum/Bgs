@@ -20,12 +20,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="TextView" />
+            android:text="@string/gameItem" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_del_game"
             android:text="@string/deleteGame"
+            android:layout_marginBottom="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_create_meeting"
+            android:text="@string/createMeeting"
             android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
@@ -40,7 +46,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="@string/Meetings" />
 
         <ListView

@@ -17,6 +17,7 @@ import com.dzmitrykavalioum.bgs.ui.messages.MessagesFragment;
 import com.dzmitrykavalioum.bgs.ui.myfriends.MyFriendsFragment;
 import com.dzmitrykavalioum.bgs.ui.mygames.MyGamesFragment;
 import com.dzmitrykavalioum.bgs.ui.mymeetings.MyMeetingsFragment;
+import com.dzmitrykavalioum.bgs.ui.updateuser.UpdateUserActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -115,7 +116,7 @@ public class NavBotActivity extends AppCompatActivity implements BottomNavigatio
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(NavBotActivity.this, UserDataActivity.class);
+                Intent intent = new Intent(NavBotActivity.this, UpdateUserActivity.class);
                 intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
                 startActivity(intent);
                 break;

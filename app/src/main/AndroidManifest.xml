@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.UserDataActivity"></activity>
+        <activity android:name=".ui.createmeeting.CreateMeetingActivity"></activity>
+        <activity android:name=".ui.updateuser.UpdateUserActivity" />
         <activity android:name=".ui.GameItemActivity" />
         <activity
             android:name=".ui.NavBotActivity"

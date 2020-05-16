@@ -22,6 +22,14 @@
             android:hint="@string/confirm_password"
             android:inputType="textPassword" />
 
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+
         <TextView
             android:id="@+id/tvRegistrationTitile"
             android:layout_width="wrap_content"
@@ -84,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/btnSave"
             android:layout_alignParentRight="true"
-            android:text="@string/exit" />
+            android:text="@string/cancel" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,25 +1,23 @@
-package com.dzmitrykavalioum.bgs.presenters;
+package com.dzmitrykavalioum.bgs.ui.updateuser;
 
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import com.dzmitrykavalioum.bgs.interfaces.UpdateUserView;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.arturvasilov.rxloader.LifecycleHandler;
 
 public class UpdateUserPresenter {
 
-    private final LifecycleHandler lifecycleHandler;
+    //private final LifecycleHandler lifecycleHandler;
     private final UpdateUserView updateUserView;
 
-    public UpdateUserPresenter(@NonNull LifecycleHandler lifecycleHandler, @NonNull UpdateUserView updateUserView) {
-        this.lifecycleHandler = lifecycleHandler;
+    public UpdateUserPresenter( @NonNull UpdateUserView updateUserView) {   //@NonNull LifecycleHandler lifecycleHandler,
+        //this.lifecycleHandler = lifecycleHandler;
         this.updateUserView = updateUserView;
     }
 
@@ -35,12 +33,14 @@ public class UpdateUserPresenter {
             userResponse.setPassword(password);
             userResponse.setLocation(location);
             userResponse.setDateOfBirth(dateOfBirth);
+            updateUserView.showLoading();                           //show loading process
             Call<UserResponse> callUpdate = NetworkService.users().update(id,userResponse);
             callUpdate.enqueue(new Callback<UserResponse>() {
                 @Override
                 public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                     UserResponse userResponse = response.body();
                     updateUserView.updateUserData(userResponse);
+                    updateUserView.hideLoading();                   //hide loading process
                 }
 
                 @Override
