@@ -113,6 +113,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements CreateMe
 
     @Override
     public void openWithSuccess(int userId, int ganeId) {
-        Toast.makeText(context, "Success. Meeting created.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Success. ", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
