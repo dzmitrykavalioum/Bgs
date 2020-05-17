@@ -96,7 +96,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements CreateMe
         etDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(context, date, myCalendar
+                new DatePickerDialog(view.getContext(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -104,7 +104,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements CreateMe
     }
 
     private void updateLabel() {
-        String myFormat = "yyyy-MM-dd";// "MM/dd/yy"; //In which you need put here
+        String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         etDate.setText(sdf.format(myCalendar.getTime()));

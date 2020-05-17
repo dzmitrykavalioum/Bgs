@@ -1,11 +1,14 @@
 package com.dzmitrykavalioum.bgs.adapters;
 
 import android.content.Context;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +16,8 @@ import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.model.GameCollection;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
+import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
@@ -25,8 +30,10 @@ public class GameAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private ArrayList<GameCollection> games;
     private Button btn_add;
+    private ImageView iv_game;
     private boolean withBtn;
     private int userId;
+    private String urlImage;
 
     public GameAdapter(Context context, ArrayList<GameCollection> listgames, boolean withBtn, int userId) {
         ctx = context;
@@ -63,6 +70,17 @@ public class GameAdapter extends BaseAdapter {
         GameCollection game = getGame(i);
         ((TextView) view.findViewById(R.id.tv_title_game)).setText(game.getTitle());
         ((TextView) view.findViewById(R.id.tv_rating_game)).setText(game.getRating().toString());
+        urlImage = game.getLogo();
+        iv_game = view.findViewById(R.id.iv_game);
+        Log.i("gameadapter", game.getTitle()+ " "+ urlImage);
+        if (urlImage!=""){
+            Picasso.get().load(urlImage).into(iv_game);
+
+        }
+        else{
+            iv_game.setImageResource(R.drawable.ic_menu_camera);
+        }
+
         btn_add = (Button) view.findViewById(R.id.btn_add_game);
         if (withBtn) {
             btn_add.setVisibility(View.VISIBLE);
