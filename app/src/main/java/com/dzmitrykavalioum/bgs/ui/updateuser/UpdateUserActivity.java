@@ -48,7 +48,7 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
         if (arguments != null) {
             userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
             //LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
-            updateUserPresenter = new UpdateUserPresenter( this);
+            updateUserPresenter = new UpdateUserPresenter(this);
             initViews();
         }
 
@@ -67,7 +67,7 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
         etDateOfBirth.setText(userResponse.getDateOfBirth());
         etLocation = (EditText) findViewById(R.id.etLocation);
         etLocation.setText(userResponse.getLocation());
-        progressBar = findViewById(R.id.pb_loading);
+        progressBar = findViewById(R.id.pb_loading_register);
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -96,20 +96,20 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    int id = userResponse.getId();
-                    String login = etLogin.getText().toString();
-                    String password = etPassword.getText().toString();
-                    String confirmPassword = etConfirmPassword.getText().toString();
-                    String dateOfBirth = etDateOfBirth.getText().toString();
-                    String location = etLocation.getText().toString();
-                    updateUserPresenter.tryUpdateUserData(id,login,password,confirmPassword,dateOfBirth,location);
+                int id = userResponse.getId();
+                String login = etLogin.getText().toString();
+                String password = etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
+                String dateOfBirth = etDateOfBirth.getText().toString();
+                String location = etLocation.getText().toString();
+                updateUserPresenter.tryUpdateUserData(id, login, password, confirmPassword, dateOfBirth, location);
             }
         });
         btnCancel = findViewById(R.id.btnExit);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"Cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -126,7 +126,7 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
     @Override
     public void updateUserData(UserResponse userResponse) {
         Intent intent = new Intent(this, NavBotActivity.class);
-        intent.putExtra(UserResponse.class.getSimpleName(),userResponse);
+        intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
         startActivity(intent);
     }
 
@@ -137,7 +137,7 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
 
     @Override
     public void showErrorNotConfirm() {
-        Toast.makeText(this, "Passwords not confirms", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Passwords don't match", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -148,7 +148,7 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
 
     @Override
     public void hideLoading() {
-       progressBar.setVisibility(ProgressBar.INVISIBLE);
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
         // loadingView.hideLoading();
     }
 }

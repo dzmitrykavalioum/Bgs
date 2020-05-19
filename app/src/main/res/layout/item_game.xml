@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
@@ -12,7 +12,7 @@
         android:layout_margin="3dp"
         app:cardCornerRadius="20dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -21,6 +21,8 @@
                 android:id="@+id/iv_game"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,30 +33,36 @@
                 android:id="@+id/tv_title_game"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="5dp"
-                android:layout_weight="1"
+                android:layout_toRightOf="@+id/iv_game"
+                android:layout_alignParentTop="true"
                 android:text="@string/title"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/tv_rating_game"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-
-                android:layout_weight="1"
+                android:layout_toRightOf="@+id/iv_game"
+                android:layout_alignParentBottom="true"
                 android:text="@string/rating"
-                android:textSize="30dp" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/btn_add_game"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+
                 android:text="@string/add"
                 android:visibility="invisible" />
-        </LinearLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 

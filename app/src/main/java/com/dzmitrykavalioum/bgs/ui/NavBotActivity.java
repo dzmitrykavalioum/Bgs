@@ -27,9 +27,10 @@ import androidx.fragment.app.Fragment;
 
 public class NavBotActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    public TextView tv_name;
+
     private UserResponse userResponse;
     private Bundle bundle;
+    private  BottomNavigationView navView;
     Fragment fragment;
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -38,7 +39,8 @@ public class NavBotActivity extends AppCompatActivity implements BottomNavigatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_bot);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        navView = findViewById(R.id.nav_view);
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
             userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
@@ -47,10 +49,11 @@ public class NavBotActivity extends AppCompatActivity implements BottomNavigatio
 
         fragment = new MyGamesFragment();
         bundle = new Bundle();
-
         bundle.putSerializable(UserResponse.class.getSimpleName(), userResponse);
         fragment.setArguments(bundle);
+        setTitle(R.string.menu_my_games);
         loadFragment(fragment);
+
 
         navView.setOnNavigationItemSelectedListener(this);
 
@@ -64,17 +67,21 @@ public class NavBotActivity extends AppCompatActivity implements BottomNavigatio
             case R.id.item_my_games:
                 fragment = new MyGamesFragment();
                 fragment.setArguments(bundle);
+                setTitle(R.string.menu_my_games);
                 break;
             case R.id.item_my_meetings:
                 fragment = new MyMeetingsFragment();
                 fragment.setArguments(bundle);
+                setTitle(R.string.menu_my_meetings);
                 break;
             case R.id.item_games:
                 fragment = new GamesFragment();
                 fragment.setArguments(bundle);
+                setTitle(R.string.menu_games);
                 break;
             case R.id.item_messages:
                 fragment = new MessagesFragment();
+                fragment.setArguments(bundle);
                 break;
             case R.id.item_my_friends:
                 fragment = new MyFriendsFragment();

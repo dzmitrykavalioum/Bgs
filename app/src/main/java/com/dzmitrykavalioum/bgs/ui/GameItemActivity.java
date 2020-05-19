@@ -34,14 +34,11 @@ public class GameItemActivity extends AppCompatActivity {
     public static String KEY_GAME_TITLE = "KEY_GAME_TITLE";
     private GameCollection gameItem;
     private TextView tv_game_item_title;
-    private TextView tv_game_item_gamers;
-    private TextView tv_game_item_meetings;
     private MeetingAdapter meetingAdapter;
     private ListView lvMeetings;
     private List<Meeting> meetingList;
     private List<Meeting> userMeetingList;
     private List<GameCollection> updatedListGames;
-
     private UserResponse userResponse;
     private Button btn_del_game;
     private Button btn_create_meeting;
@@ -66,7 +63,6 @@ public class GameItemActivity extends AppCompatActivity {
                         UserResponse newUser = response.body();
                         intent.putExtra(UserResponse.class.getSimpleName(), newUser);
                         setResult(RESULT_OK, intent);
-
                         finish();
                     }
 
@@ -113,7 +109,6 @@ public class GameItemActivity extends AppCompatActivity {
     }
 
     public void update(int userId) {
-        Toast.makeText(this, "userId" + userId, Toast.LENGTH_SHORT).show();
         Call<List<GameCollection>> callGame = NetworkService.users().userGameList(userId);
         Call<List<Meeting>> callMeeting = NetworkService.users().userMeetingList(userId);
         callGame.enqueue(new Callback<List<GameCollection>>() {

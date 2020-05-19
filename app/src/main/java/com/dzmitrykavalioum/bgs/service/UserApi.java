@@ -47,13 +47,10 @@ public interface UserApi {
 
 
 
-
-
-
     //game
 
     @GET("gameListPage")
-    Call<List<GameCollection>> unsubscrableGameList(@Query("userId") int userId);
+    Call<List<GameCollection>> unsubscribleGameList(@Query("userId") int userId);
 
     @POST("userGameList")
     Call<List<GameCollection>> userGameList(@Query("userId") int userId);
