@@ -1,5 +1,7 @@
 package com.dzmitrykavalioum.bgs.ui.gameitem;
 
+import android.util.Log;
+
 import com.dzmitrykavalioum.bgs.model.GameCollection;
 import com.dzmitrykavalioum.bgs.model.Meeting;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
@@ -23,7 +25,7 @@ public class GameItemPresenter implements GameItemContract.PresenterContract {
     }
 
     @Override
-    public List<Meeting> getUserMeetings(int userId) {
+    public void getUserMeetings(int userId) {
         //meetings = null;
         Call<List<Meeting>> callMeetings = NetworkService.users().userMeetingList(userId);
         view.showLoading();
@@ -31,7 +33,9 @@ public class GameItemPresenter implements GameItemContract.PresenterContract {
             @Override
             public void onResponse(Call<List<Meeting>> call, Response<List<Meeting>> response) {
                 meetings = response.body();
+                view.setMeetings(meetings);
                 view.hideLoading();
+
 
             }
 
@@ -43,23 +47,29 @@ public class GameItemPresenter implements GameItemContract.PresenterContract {
             }
         });
 
-        return meetings;
+
     }
 
     @Override
-    public List<GameCollection> getUserGames(int userId) {
+    public void getUserGames(int userId) {
         //games = null;
+
         Call<List<GameCollection>> callGames = NetworkService.users().userGameList(userId);
+
         view.showLoading();
         callGames.enqueue(new Callback<List<GameCollection>>() {
             @Override
             public void onResponse(Call<List<GameCollection>> call, Response<List<GameCollection>> response) {
                 games = response.body();
+                view.setGames(games);
                 view.hideLoading();
+
                 if (games!=null){
+                    Log.i("getUserGamse", "games not nul");
                     view.showMessage("games not nul");
                 }
                 else {
+                    Log.i("getUserGamse","games is nul!!!!!!!!!!!");
                     view.showMessage("gamer is nullllllllll");
                 }
             }
@@ -68,9 +78,10 @@ public class GameItemPresenter implements GameItemContract.PresenterContract {
             public void onFailure(Call<List<GameCollection>> call, Throwable t) {
                 view.hideLoading();
                 view.showError(t.getMessage());
+                Log.i("getUserGames", "onFailure");
             }
         });
-        return games;
+
     }
 
     @Override

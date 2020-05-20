@@ -71,8 +71,8 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
             userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
             Log.i("response", userResponse.getLogin() + " is here");
             tv_game_item_title.setText(gameItem.getTitle());
-            //update(userResponse.getId());
-            updateViews(userResponse.getId());
+            update(userResponse.getId());
+            //updateViews(userResponse.getId());
 
         }
         btn_del_game.setOnClickListener(new View.OnClickListener() {
@@ -168,28 +168,34 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
 
     @Override
     public void updateViews(int userId) {
-        updatedListGames = gameItemPresenter.getUserGames(userId);
-        userResponse.setGameCollection(updatedListGames);
+        //updatedListGames = userResponse.getGameCollection();
+        gameItemPresenter.getUserGames(userId);
 
-        // show meeting list by game item
-        for (GameCollection item : updatedListGames) {
+        Log.i("UPDATED GAMES IS NULL","views "+updatedListGames.size());
+
+        if (updatedListGames!=null) {
+            // show meeting list by game item
+            for (GameCollection item : updatedListGames) {
 //            Log.i("foreach", item.getTitle() + " " + item.getId() + " game Item " + gameItem.getId());
-            if (item.getId() == gameItem.getId()) {
+                if (item.getId() == gameItem.getId()) {
 
-                meetingList = (ArrayList<Meeting>) item.getMeetings();
-                //               Log.i("foreach", item.getTitle() + "id ==");
+                    meetingList = (ArrayList<Meeting>) item.getMeetings();
+                    //               Log.i("foreach", item.getTitle() + "id ==");
 
-                if (meetingList != null) {
-                    //                  Log.i("foreach", item.getTitle() + "list not null");
-                    meetingAdapter = new MeetingAdapter(context, (ArrayList<Meeting>) meetingList, userResponse);
-                    lvMeetings.setAdapter(meetingAdapter);
-                    meetingAdapter.notifyDataSetChanged();
-                    break;
+                    if (meetingList != null) {
+                        //                  Log.i("foreach", item.getTitle() + "list not null");
+                        meetingAdapter = new MeetingAdapter(context, (ArrayList<Meeting>) meetingList, userResponse);
+                        lvMeetings.setAdapter(meetingAdapter);
+                        meetingAdapter.notifyDataSetChanged();
+                        break;
+                    }
                 }
             }
         }
-
-        userMeetingList = gameItemPresenter.getUserMeetings(userId);
+        else
+            showMessage("list is empty");
+        gameItemPresenter.getUserMeetings(userId);
+        userResponse.setGameCollection(updatedListGames);
         userResponse.setMeetingSet(userMeetingList);
     }
 
@@ -197,6 +203,18 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
     public void showLoading() {
 
     }
+
+    @Override
+    public void setGames(List<GameCollection> gamesUpd) {
+        updatedListGames = gamesUpd;
+        Log.i("UPDATED GAMES IS NULL",""+updatedListGames.size());
+    }
+
+    @Override
+    public void setMeetings(List<Meeting> meetingsUpd) {
+            userMeetingList = meetingsUpd;
+    }
+
 
     @Override
     public void hideLoading() {
