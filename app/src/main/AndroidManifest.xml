@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.createmeeting.CreateMeetingActivity"></activity>
         <activity android:name=".ui.updateuser.UpdateUserActivity" />
-        <activity android:name=".ui.GameItemActivity" />
+        <activity android:name=".ui.gameitem.GameItemActivity" />
         <activity
             android:name=".ui.NavBotActivity"
             android:label="@string/title_activity_nav_bot" />

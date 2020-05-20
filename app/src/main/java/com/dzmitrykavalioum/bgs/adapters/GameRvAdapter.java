@@ -18,7 +18,7 @@ import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.model.GameCollection;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
-import com.dzmitrykavalioum.bgs.ui.GameItemActivity;
+import com.dzmitrykavalioum.bgs.ui.gameitem.GameItemActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dzmitrykavalioum.bgs.adapters.GameRvAdapter;
-import com.dzmitrykavalioum.bgs.ui.GameItemActivity;
+import com.dzmitrykavalioum.bgs.ui.gameitem.GameItemActivity;
 import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.adapters.GameAdapter;
 import com.dzmitrykavalioum.bgs.model.GameCollection;

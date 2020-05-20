@@ -1,4 +1,4 @@
-package com.dzmitrykavalioum.bgs.ui;
+package com.dzmitrykavalioum.bgs.ui.gameitem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +19,7 @@ import com.dzmitrykavalioum.bgs.model.Meeting;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 import com.dzmitrykavalioum.bgs.ui.createmeeting.CreateMeetingActivity;
+import com.dzmitrykavalioum.bgs.ui.mygames.MyGamesPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GameItemActivity extends AppCompatActivity {
+public class GameItemActivity extends AppCompatActivity implements GameItemContract.ViewContract {
 
     public static String KEY_USER_ID = "KEY_USER_ID";
     public static String KEY_GAME_ID = "KEY_GAME_ID";
@@ -43,58 +44,25 @@ public class GameItemActivity extends AppCompatActivity {
     private Button btn_del_game;
     private Button btn_create_meeting;
     private Context context;
+    private GameItemPresenter gameItemPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_item);
+        gameItemPresenter = new GameItemPresenter(this);
+
         initViews();
-
-        btn_del_game.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Call<UserResponse> deleteCall = NetworkService.users().deleteGame(userResponse.getId(), gameItem.getId());
-                deleteCall.enqueue(new Callback<UserResponse>() {
-                    @Override
-                    public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                        btn_del_game.setText(R.string.done);
-                        btn_del_game.setClickable(false);
-                        Intent intent = new Intent();
-                        UserResponse newUser = response.body();
-                        intent.putExtra(UserResponse.class.getSimpleName(), newUser);
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(Call<UserResponse> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), t.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-        btn_create_meeting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Intent intent = new Intent(context, CreateMeetingActivity.class);
-                    intent.putExtra(KEY_USER_ID,userResponse.getId());
-                    intent.putExtra(KEY_GAME_ID,gameItem.getId());
-                    intent.putExtra(KEY_GAME_TITLE,gameItem.getTitle());
-                    startActivity(intent);
-
-            }
-        });
-
 
     }
 
 
-    private  void initViews(){
+    private void initViews() {
         context = this;
-        tv_game_item_title = (TextView) findViewById(R.id.tv_game_item_title);
-        lvMeetings = (ListView) findViewById(R.id.lv_item_meetings);
+        tv_game_item_title = findViewById(R.id.tv_game_item_title);
+        lvMeetings = findViewById(R.id.lv_item_meetings);
 
-        btn_del_game = (Button) findViewById(R.id.btn_del_game);
+        btn_del_game = findViewById(R.id.btn_del_game);
         btn_create_meeting = findViewById(R.id.btn_create_meeting);
         Bundle arguments = getIntent().getExtras();
 
@@ -103,18 +71,58 @@ public class GameItemActivity extends AppCompatActivity {
             userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
             Log.i("response", userResponse.getLogin() + " is here");
             tv_game_item_title.setText(gameItem.getTitle());
-            update(userResponse.getId());
+            //update(userResponse.getId());
+            updateViews(userResponse.getId());
 
         }
+        btn_del_game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameItemPresenter.deleteGame(userResponse.getId(), gameItem.getId());
+                finish();
+//                Call<UserResponse> deleteCall = NetworkService.users().deleteGame(userResponse.getId(), gameItem.getId());
+//                deleteCall.enqueue(new Callback<UserResponse>() {
+//                    @Override
+//                    public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+//                        btn_del_game.setText(R.string.done);
+//                        btn_del_game.setClickable(false);
+//                        Intent intent = new Intent();
+//                        UserResponse newUser = response.body();
+//                        intent.putExtra(UserResponse.class.getSimpleName(), newUser);
+//                        setResult(RESULT_OK, intent);
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<UserResponse> call, Throwable t) {
+//                        Toast.makeText(getApplicationContext(), t.getMessage().toString(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+            }
+        });
+        btn_create_meeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), CreateMeetingActivity.class);
+                intent.putExtra(KEY_USER_ID, userResponse.getId());
+                intent.putExtra(KEY_GAME_ID, gameItem.getId());
+                intent.putExtra(KEY_GAME_TITLE, gameItem.getTitle());
+                startActivity(intent);
+
+            }
+        });
     }
 
     public void update(int userId) {
+
+
+
         Call<List<GameCollection>> callGame = NetworkService.users().userGameList(userId);
         Call<List<Meeting>> callMeeting = NetworkService.users().userMeetingList(userId);
         callGame.enqueue(new Callback<List<GameCollection>>() {
             @Override
             public void onResponse(Call<List<GameCollection>> call, Response<List<GameCollection>> response) {
-                updatedListGames = (List<GameCollection>) response.body();
+                updatedListGames = response.body();
                 userResponse.setGameCollection(updatedListGames);                                           //game list correction
 
                 for (GameCollection item : updatedListGames) {
@@ -133,8 +141,6 @@ public class GameItemActivity extends AppCompatActivity {
                         }
                     }
                 }
-                //here was foreach
-
             }
 
             @Override
@@ -156,7 +162,55 @@ public class GameItemActivity extends AppCompatActivity {
 
             }
         });
-//
+
+
+    }
+
+    @Override
+    public void updateViews(int userId) {
+        updatedListGames = gameItemPresenter.getUserGames(userId);
+        userResponse.setGameCollection(updatedListGames);
+
+        // show meeting list by game item
+        for (GameCollection item : updatedListGames) {
+//            Log.i("foreach", item.getTitle() + " " + item.getId() + " game Item " + gameItem.getId());
+            if (item.getId() == gameItem.getId()) {
+
+                meetingList = (ArrayList<Meeting>) item.getMeetings();
+                //               Log.i("foreach", item.getTitle() + "id ==");
+
+                if (meetingList != null) {
+                    //                  Log.i("foreach", item.getTitle() + "list not null");
+                    meetingAdapter = new MeetingAdapter(context, (ArrayList<Meeting>) meetingList, userResponse);
+                    lvMeetings.setAdapter(meetingAdapter);
+                    meetingAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+
+        userMeetingList = gameItemPresenter.getUserMeetings(userId);
+        userResponse.setMeetingSet(userMeetingList);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
 }

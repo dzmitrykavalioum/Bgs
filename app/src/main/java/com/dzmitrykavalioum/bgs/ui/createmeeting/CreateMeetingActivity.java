@@ -1,11 +1,9 @@
 package com.dzmitrykavalioum.bgs.ui.createmeeting;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.ContentLoadingProgressBar;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +14,7 @@ import android.widget.Toast;
 
 import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.model.Meeting;
-import com.dzmitrykavalioum.bgs.ui.GameItemActivity;
+import com.dzmitrykavalioum.bgs.ui.gameitem.GameItemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

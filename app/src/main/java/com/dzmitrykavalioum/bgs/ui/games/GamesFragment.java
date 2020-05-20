@@ -33,7 +33,6 @@ public class GamesFragment extends Fragment implements MyGamesContract.ViewContr
     private List<GameCollection> games;
 
     private RecyclerView rvGames;
-    private GameAdapter gameAdapter;
     private LinearLayoutManager layoutManager;
     private RecyclerView.ItemAnimator itemAnimator;
     private GameRvAdapter gameRvAdapter;
