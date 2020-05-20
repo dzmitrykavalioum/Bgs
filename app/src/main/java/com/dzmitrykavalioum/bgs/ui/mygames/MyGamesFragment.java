@@ -1,31 +1,20 @@
 package com.dzmitrykavalioum.bgs.ui.mygames;
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.dzmitrykavalioum.bgs.adapters.GameRvAdapter;
-import com.dzmitrykavalioum.bgs.ui.gameitem.GameItemActivity;
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.adapters.GameAdapter;
 import com.dzmitrykavalioum.bgs.model.GameCollection;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyGamesFragment extends Fragment implements MyGamesContract.ViewContract {

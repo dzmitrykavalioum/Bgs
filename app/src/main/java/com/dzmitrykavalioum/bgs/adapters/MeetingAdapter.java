@@ -23,11 +23,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MeetingAdapter extends BaseAdapter {
-    Context ctx;
-    LayoutInflater layoutInflater;
-    ArrayList<Meeting> meetingsOfGame;
-    Button btn_takepart;
-    UserResponse user;
+    private Context ctx;
+    private LayoutInflater layoutInflater;
+    private ArrayList<Meeting> meetingsOfGame;
+    private Button btn_takepart;
+    private UserResponse user;
+    private Call<String> call;
 
 
     public MeetingAdapter(Context context, ArrayList<Meeting> meetingList, UserResponse userResponse) {
@@ -65,23 +66,21 @@ public class MeetingAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.tv_date_meeting)).setText(meeting.getDateTime());
         ((TextView) view.findViewById(R.id.tv_creator_name)).setText(meeting.getCreator().getLogin());
         ((TextView) view.findViewById(R.id.tv_members_qty)).setText(meeting.getNumberOfMembers().toString());
-        btn_takepart = (Button) view.findViewById(R.id.btn_takepart_leave);
-//        btn_takepart.setText("Take");
+        btn_takepart = view.findViewById(R.id.btn_takepart_leave);
         List<Meeting> userMeetingSet = user.getMeetingSet();
-//        if (userMeetingSet == null) {
-//            Log.i("userMeeting", "user Meeting is null");
-//        } else {
-//            Log.i("userMeeting", "user Meeting not null");
-//
-//        }
+
         for (Meeting item : userMeetingSet) {
             if (item.getId() == meeting.getId()) {
                 btn_takepart.setText("Leave");
+                call = NetworkService.users().leaveMeeting(user.getId().intValue(),meeting.getId());
                 meeting.setInMeeting(true);
+
                 break;
             } else {
                 btn_takepart.setText("Take part");
+                call = NetworkService.users().addMeeting(user.getId().intValue(),meeting.getId());
                 meeting.setInMeeting(false);
+
             }
 
         }
@@ -107,7 +106,7 @@ public class MeetingAdapter extends BaseAdapter {
                             ((GameItemActivity)ctx).update(user.getId());
 
                         }
-                        
+
                         //notifyDataSetChanged();
 
                         Log.i("meeting", "ok");

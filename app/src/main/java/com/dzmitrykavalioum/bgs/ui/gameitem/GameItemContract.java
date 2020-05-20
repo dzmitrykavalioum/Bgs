@@ -10,14 +10,16 @@ public interface GameItemContract {
     interface PresenterContract {
         void getUserMeetings(int userId);
 
-        void getUserGames(int UserId);
+        void getUserGames(int userId, int gameId);
 
         UserResponse deleteGame(int userId, int gameId);
 
     }
 
     interface ViewContract {
-        void updateViews(int userId);
+ //       void updateViews(int userId);
+
+        void updateMeetings(List<Meeting> meetings,List<Meeting> userMeetings, List<GameCollection> games);
 
         void showLoading();
 

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +38,9 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
     private TextView tv_game_item_title;
     private MeetingAdapter meetingAdapter;
     private ListView lvMeetings;
-    private List<Meeting> meetingList;
     private List<Meeting> userMeetingList;
     private List<GameCollection> updatedListGames;
+    private ProgressBar progressBar;
     private UserResponse userResponse;
     private Button btn_del_game;
     private Button btn_create_meeting;
@@ -51,53 +52,31 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_item);
         gameItemPresenter = new GameItemPresenter(this);
-
         initViews();
-
     }
-
 
     private void initViews() {
         context = this;
         tv_game_item_title = findViewById(R.id.tv_game_item_title);
         lvMeetings = findViewById(R.id.lv_item_meetings);
-
+        progressBar = findViewById(R.id.pb_loading_game_item);
         btn_del_game = findViewById(R.id.btn_del_game);
         btn_create_meeting = findViewById(R.id.btn_create_meeting);
         Bundle arguments = getIntent().getExtras();
-
         if (arguments != null) {
             gameItem = (GameCollection) arguments.getSerializable(GameCollection.class.getSimpleName());
             userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
             Log.i("response", userResponse.getLogin() + " is here");
             tv_game_item_title.setText(gameItem.getTitle());
-            update(userResponse.getId());
-            //updateViews(userResponse.getId());
-
+            setTitle(gameItem.getTitle());
+            gameItemPresenter.getUserGames(userResponse.getId(),gameItem.getId());
         }
         btn_del_game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gameItemPresenter.deleteGame(userResponse.getId(), gameItem.getId());
                 finish();
-//                Call<UserResponse> deleteCall = NetworkService.users().deleteGame(userResponse.getId(), gameItem.getId());
-//                deleteCall.enqueue(new Callback<UserResponse>() {
-//                    @Override
-//                    public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-//                        btn_del_game.setText(R.string.done);
-//                        btn_del_game.setClickable(false);
-//                        Intent intent = new Intent();
-//                        UserResponse newUser = response.body();
-//                        intent.putExtra(UserResponse.class.getSimpleName(), newUser);
-//                        setResult(RESULT_OK, intent);
-//                        finish();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<UserResponse> call, Throwable t) {
-//                        Toast.makeText(getApplicationContext(), t.getMessage().toString(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+
             }
         });
         btn_create_meeting.setOnClickListener(new View.OnClickListener() {
@@ -113,101 +92,36 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
         });
     }
 
-    public void update(int userId) {
-
-
-
-        Call<List<GameCollection>> callGame = NetworkService.users().userGameList(userId);
-        Call<List<Meeting>> callMeeting = NetworkService.users().userMeetingList(userId);
-        callGame.enqueue(new Callback<List<GameCollection>>() {
-            @Override
-            public void onResponse(Call<List<GameCollection>> call, Response<List<GameCollection>> response) {
-                updatedListGames = response.body();
-                userResponse.setGameCollection(updatedListGames);                                           //game list correction
-
-                for (GameCollection item : updatedListGames) {
-                    Log.i("foreach", item.getTitle() + " " + item.getId() + " game Item " + gameItem.getId());
-                    if (item.getId() == gameItem.getId()) {
-
-                        meetingList = (ArrayList<Meeting>) item.getMeetings();
-                        Log.i("foreach", item.getTitle() + "id ==");
-
-                        if (meetingList != null) {
-                            Log.i("foreach", item.getTitle() + "list not null");
-                            meetingAdapter = new MeetingAdapter(context, (ArrayList<Meeting>) meetingList, userResponse);
-                            lvMeetings.setAdapter(meetingAdapter);
-                            meetingAdapter.notifyDataSetChanged();
-                            break;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<GameCollection>> call, Throwable t) {
-
-            }
-        });
-
-
-        callMeeting.enqueue(new Callback<List<Meeting>>() {
-            @Override
-            public void onResponse(Call<List<Meeting>> call, Response<List<Meeting>> response) {
-                userMeetingList = response.body();
-                userResponse.setMeetingSet(userMeetingList);
-            }
-
-            @Override
-            public void onFailure(Call<List<Meeting>> call, Throwable t) {
-
-            }
-        });
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gameItemPresenter.getUserGames(userResponse.getId(),gameItem.getId());
 
     }
 
+    public void update(int userId){
+        gameItemPresenter.getUserGames(userId,gameItem.getId());
+    }
+
     @Override
-    public void updateViews(int userId) {
-        //updatedListGames = userResponse.getGameCollection();
-        gameItemPresenter.getUserGames(userId);
+    public void updateMeetings(List<Meeting> meetings,List<Meeting> userMeetings, List<GameCollection> games) {
 
-        Log.i("UPDATED GAMES IS NULL","views "+updatedListGames.size());
-
-        if (updatedListGames!=null) {
-            // show meeting list by game item
-            for (GameCollection item : updatedListGames) {
-//            Log.i("foreach", item.getTitle() + " " + item.getId() + " game Item " + gameItem.getId());
-                if (item.getId() == gameItem.getId()) {
-
-                    meetingList = (ArrayList<Meeting>) item.getMeetings();
-                    //               Log.i("foreach", item.getTitle() + "id ==");
-
-                    if (meetingList != null) {
-                        //                  Log.i("foreach", item.getTitle() + "list not null");
-                        meetingAdapter = new MeetingAdapter(context, (ArrayList<Meeting>) meetingList, userResponse);
-                        lvMeetings.setAdapter(meetingAdapter);
-                        meetingAdapter.notifyDataSetChanged();
-                        break;
-                    }
-                }
-            }
-        }
-        else
-            showMessage("list is empty");
-        gameItemPresenter.getUserMeetings(userId);
-        userResponse.setGameCollection(updatedListGames);
-        userResponse.setMeetingSet(userMeetingList);
+        userResponse.setMeetingSet(userMeetings);
+        userResponse.setGameCollection(games);
+        meetingAdapter = new MeetingAdapter(context, (ArrayList<Meeting>) meetings, userResponse);
+        lvMeetings.setAdapter(meetingAdapter);
+        meetingAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showLoading() {
-
+        progressBar.setVisibility(ProgressBar.VISIBLE);
     }
 
     @Override
     public void setGames(List<GameCollection> gamesUpd) {
         updatedListGames = gamesUpd;
-        Log.i("UPDATED GAMES IS NULL",""+updatedListGames.size());
+
     }
 
     @Override
@@ -218,7 +132,7 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
 
     @Override
     public void hideLoading() {
-
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
     @Override

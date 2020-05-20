@@ -2,11 +2,13 @@ package com.dzmitrykavalioum.bgs.ui.gameitem;
 
 import android.util.Log;
 
+import com.dzmitrykavalioum.bgs.adapters.MeetingAdapter;
 import com.dzmitrykavalioum.bgs.model.GameCollection;
 import com.dzmitrykavalioum.bgs.model.Meeting;
 import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,8 +19,10 @@ public class GameItemPresenter implements GameItemContract.PresenterContract {
 
     private GameItemContract.ViewContract view;
     private List<Meeting> meetings;
+    private List<Meeting> usersMeetings;
     private List<GameCollection> games;
     private UserResponse userResponse;
+
 
     public GameItemPresenter(GameItemContract.ViewContract view) {
         this.view = view;
@@ -51,7 +55,7 @@ public class GameItemPresenter implements GameItemContract.PresenterContract {
     }
 
     @Override
-    public void getUserGames(int userId) {
+    public void getUserGames(int userId, int gameId) {
         //games = null;
 
         Call<List<GameCollection>> callGames = NetworkService.users().userGameList(userId);
@@ -61,15 +65,47 @@ public class GameItemPresenter implements GameItemContract.PresenterContract {
             @Override
             public void onResponse(Call<List<GameCollection>> call, Response<List<GameCollection>> response) {
                 games = response.body();
-                view.setGames(games);
+                if (games != null) {
+                    // show meeting list by game item
+                    for (GameCollection item : games) {
+                        if (item.getId() == gameId) {
+                            meetings = (ArrayList<Meeting>) item.getMeetings();
+                            if (meetings != null) {
+                                //                  Log.i("foreach", item.getTitle() + "list not null");
+                                //view.updateMeetings(meetings, games);
+                                break;
+                            }
+                        }
+                    }
+
+                    Call<List<Meeting>> callMeetings = NetworkService.users().userMeetingList(userId);
+                    view.showLoading();
+                    callMeetings.enqueue(new Callback<List<Meeting>>() {
+                        @Override
+                        public void onResponse(Call<List<Meeting>> call, Response<List<Meeting>> response) {
+                            usersMeetings = response.body();
+                            view.updateMeetings(meetings,usersMeetings,games);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Meeting>> call, Throwable t) {
+                            view.hideLoading();
+                            view.showError(t.getMessage());
+
+                        }
+                    });
+
+                } else
+                    view.showMessage("list is empty");
+
+
                 view.hideLoading();
 
-                if (games!=null){
+                if (games != null) {
                     Log.i("getUserGamse", "games not nul");
                     view.showMessage("games not nul");
-                }
-                else {
-                    Log.i("getUserGamse","games is nul!!!!!!!!!!!");
+                } else {
+                    Log.i("getUserGamse", "games is nul!!!!!!!!!!!");
                     view.showMessage("gamer is nullllllllll");
                 }
             }
@@ -87,7 +123,7 @@ public class GameItemPresenter implements GameItemContract.PresenterContract {
     @Override
     public UserResponse deleteGame(int userId, int gameId) {
         //userResponse = null;
-        Call<UserResponse> callDelete = NetworkService.users().deleteGame(userId,gameId);
+        Call<UserResponse> callDelete = NetworkService.users().deleteGame(userId, gameId);
         view.showLoading();
         callDelete.enqueue(new Callback<UserResponse>() {
             @Override

@@ -79,14 +79,14 @@ public class NavBotActivity extends AppCompatActivity implements BottomNavigatio
                 fragment.setArguments(bundle);
                 setTitle(R.string.menu_games);
                 break;
-            case R.id.item_messages:
-                fragment = new MessagesFragment();
-                fragment.setArguments(bundle);
-                break;
-            case R.id.item_my_friends:
-                fragment = new MyFriendsFragment();
-                fragment.setArguments(bundle);
-                break;
+//            case R.id.item_messages:
+//                fragment = new MessagesFragment();
+//                fragment.setArguments(bundle);
+//                break;
+//            case R.id.item_my_friends:
+//                fragment = new MyFriendsFragment();
+//                fragment.setArguments(bundle);
+//                break;
 
         }
         return loadFragment(fragment);

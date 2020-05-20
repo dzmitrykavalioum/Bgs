@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context=".ui.gameitem.GameItemActivity">
 
+    <ProgressBar
+        android:id="@+id/pb_loading_game_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,6 +21,8 @@
         android:id="@+id/ll1"
         android:orientation="vertical"
         android:layout_weight="1">
+
+
 
         <TextView
             android:id="@+id/tv_game_item_title"
