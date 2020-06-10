@@ -11,7 +11,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class NetworkService {
 
-    private static final String BASE_URL ="http://192.168.1.64:8080/mobile/";//"http://192.168.1.42:8080/mobile/";//"http://192.168.1.115:8080/mobile/";
+    private static final String BASE_URL ="http://s281763.savps.ru/mobile/";// "http://192.168.1.64:8080/mobile/";//"http://192.168.1.42:8080/mobile/";//"http://192.168.1.115:8080/mobile/";
     static UserApi instance;
     private static Retrofit retrofit;
 
