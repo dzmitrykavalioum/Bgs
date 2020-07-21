@@ -7,14 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.ui.games.GamesFragment;
-import com.dzmitrykavalioum.bgs.ui.messages.MessagesFragment;
-import com.dzmitrykavalioum.bgs.ui.myfriends.MyFriendsFragment;
 import com.dzmitrykavalioum.bgs.ui.mygames.MyGamesFragment;
 import com.dzmitrykavalioum.bgs.ui.mymeetings.MyMeetingsFragment;
 import com.dzmitrykavalioum.bgs.ui.updateuser.UpdateUserActivity;
@@ -28,7 +25,7 @@ import androidx.fragment.app.Fragment;
 public class NavBotActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
 
-    private UserResponse userResponse;
+    private User user;
     private Bundle bundle;
     private  BottomNavigationView navView;
     Fragment fragment;
@@ -43,13 +40,13 @@ public class NavBotActivity extends AppCompatActivity implements BottomNavigatio
         navView = findViewById(R.id.nav_view);
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
-            userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
+            user = (User) arguments.getSerializable(User.class.getSimpleName());
 
         }
 
         fragment = new MyGamesFragment();
         bundle = new Bundle();
-        bundle.putSerializable(UserResponse.class.getSimpleName(), userResponse);
+        bundle.putSerializable(User.class.getSimpleName(), user);
         fragment.setArguments(bundle);
         setTitle(R.string.menu_my_games);
         loadFragment(fragment);
@@ -124,7 +121,7 @@ public class NavBotActivity extends AppCompatActivity implements BottomNavigatio
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent intent = new Intent(NavBotActivity.this, UpdateUserActivity.class);
-                intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
+                intent.putExtra(User.class.getSimpleName(), user);
                 startActivity(intent);
                 break;
             case R.id.action_exit:

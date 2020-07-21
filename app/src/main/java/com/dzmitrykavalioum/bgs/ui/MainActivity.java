@@ -3,7 +3,7 @@ package com.dzmitrykavalioum.bgs.ui;
 import android.os.Bundle;
 
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
         View v = navigationView.getHeaderView(0);
         tcMain1 = (TextView) v.findViewById(R.id.tvMain1);
         Bundle arguments = getIntent().getExtras();
-        UserResponse userResponse;
+        User user;
         if (arguments != null) {
-            userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
-            tcMain1.setText(userResponse.getLogin());
+            user = (User) arguments.getSerializable(User.class.getSimpleName());
+            tcMain1.setText(user.getLogin());
         }
 
     }

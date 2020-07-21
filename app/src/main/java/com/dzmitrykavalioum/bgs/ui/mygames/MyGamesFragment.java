@@ -13,17 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.dzmitrykavalioum.bgs.adapters.GameRvAdapter;
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.model.GameCollection;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.Game;
+import com.dzmitrykavalioum.bgs.model.User;
+
 import java.util.List;
 
 public class MyGamesFragment extends Fragment implements MyGamesContract.ViewContract {
 
 
-    private UserResponse userResponse;
+    private User user;
     private RecyclerView rvMyGames;
     private GameRvAdapter gameRvAdapter;
-    private List<GameCollection> games;
+    private List<Game> games;
     private LinearLayoutManager layoutManager;
     private RecyclerView.ItemAnimator itemAnimator;
     private MyGamesPresenter myGamesPresenter;
@@ -48,22 +49,22 @@ public class MyGamesFragment extends Fragment implements MyGamesContract.ViewCon
         itemAnimator = new DefaultItemAnimator();
         Bundle bundle = getArguments();
         if (bundle != null) {
-            userResponse = (UserResponse) bundle.getSerializable(UserResponse.class.getSimpleName());
+            user = (User) bundle.getSerializable(User.class.getSimpleName());
         }
-        games = userResponse.getGameCollection();
+        games = user.getGames();
         showGames(games);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        games = myGamesPresenter.updateGames(userResponse.getId());
+        games = myGamesPresenter.updateGames(user.getId());
     }
 
     @Override
-    public void showGames(List<GameCollection> games) {
+    public void showGames(List<Game> games) {
         if (games != null) {
-            gameRvAdapter = new GameRvAdapter(games, userResponse, withBtn);
+            gameRvAdapter = new GameRvAdapter(games, user, withBtn);
             rvMyGames.setAdapter(gameRvAdapter);
             rvMyGames.setLayoutManager(layoutManager);
             rvMyGames.setItemAnimator(itemAnimator);

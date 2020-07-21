@@ -9,10 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dzmitrykavalioum.bgs.model.Meeting;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.ui.gameitem.GameItemActivity;
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.model.Meeting;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 
 import java.util.ArrayList;
@@ -27,15 +27,15 @@ public class MeetingAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private ArrayList<Meeting> meetingsOfGame;
     private Button btn_takepart;
-    private UserResponse user;
+    private User user;
     private Call<String> call;
 
 
-    public MeetingAdapter(Context context, ArrayList<Meeting> meetingList, UserResponse userResponse) {
+    public MeetingAdapter(Context context, ArrayList<Meeting> meetingList, User user) {
         ctx = context;
         meetingsOfGame = meetingList;
         layoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        user = userResponse;
+        this.user = user;
     }
 
     @Override
@@ -64,12 +64,12 @@ public class MeetingAdapter extends BaseAdapter {
         Meeting meeting = getMeeting(i);
         ((TextView) view.findViewById(R.id.tv_location)).setText(meeting.getLocation());
         ((TextView) view.findViewById(R.id.tv_date_meeting)).setText(meeting.getDateTime());
-        ((TextView) view.findViewById(R.id.tv_creator_name)).setText(meeting.getCreator().getLogin());
+        ((TextView) view.findViewById(R.id.tv_creator_name)).setText(meeting.getCreator());
         ((TextView) view.findViewById(R.id.tv_members_qty)).setText(meeting.getNumberOfMembers().toString());
         btn_takepart = view.findViewById(R.id.btn_takepart_leave);
-        List<Meeting> userMeetingSet = user.getMeetingSet();
+        List<Meeting> userMeetings = user.getMeetings();
 
-        for (Meeting item : userMeetingSet) {
+        for (Meeting item : userMeetings) {
             if (item.getId() == meeting.getId()) {
                 btn_takepart.setText("Leave");
                 call = NetworkService.users().leaveMeeting(user.getId().intValue(),meeting.getId());

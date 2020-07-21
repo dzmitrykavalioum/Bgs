@@ -1,7 +1,5 @@
 package com.dzmitrykavalioum.bgs.ui.register;
 
-import com.dzmitrykavalioum.bgs.model.UserResponse;
-
 public interface RegisterContract {
     interface PresenterContract {
         String register(String login, String password, String confirmPassword, String dateOfBirth, String location);

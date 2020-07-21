@@ -15,33 +15,27 @@ import android.widget.Toast;
 
 import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.adapters.MeetingAdapter;
-import com.dzmitrykavalioum.bgs.model.GameCollection;
+import com.dzmitrykavalioum.bgs.model.Game;
 import com.dzmitrykavalioum.bgs.model.Meeting;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
-import com.dzmitrykavalioum.bgs.service.NetworkService;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.ui.createmeeting.CreateMeetingActivity;
-import com.dzmitrykavalioum.bgs.ui.mygames.MyGamesPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class GameItemActivity extends AppCompatActivity implements GameItemContract.ViewContract {
 
     public static String KEY_USER_ID = "KEY_USER_ID";
     public static String KEY_GAME_ID = "KEY_GAME_ID";
     public static String KEY_GAME_TITLE = "KEY_GAME_TITLE";
-    private GameCollection gameItem;
+    private Game game;
     private TextView tv_game_item_title;
     private MeetingAdapter meetingAdapter;
     private ListView lvMeetings;
     private List<Meeting> userMeetingList;
-    private List<GameCollection> updatedListGames;
+    private List<Game> updatedListGames;
     private ProgressBar progressBar;
-    private UserResponse userResponse;
+    private User user;
     private Button btn_del_game;
     private Button btn_create_meeting;
     private Context context;
@@ -64,17 +58,17 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
         btn_create_meeting = findViewById(R.id.btn_create_meeting);
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
-            gameItem = (GameCollection) arguments.getSerializable(GameCollection.class.getSimpleName());
-            userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
-            Log.i("response", userResponse.getLogin() + " is here");
-            tv_game_item_title.setText(gameItem.getTitle());
-            setTitle(gameItem.getTitle());
-            gameItemPresenter.getUserGames(userResponse.getId(),gameItem.getId());
+            game = (Game) arguments.getSerializable(Game.class.getSimpleName());
+            user = (User) arguments.getSerializable(User.class.getSimpleName());
+            Log.i("response", user.getLogin() + " is here");
+            tv_game_item_title.setText(game.getTitle());
+            setTitle(game.getTitle());
+            gameItemPresenter.getUserGames(user.getId(), game.getId());
         }
         btn_del_game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameItemPresenter.deleteGame(userResponse.getId(), gameItem.getId());
+                gameItemPresenter.deleteGame(user.getId(), game.getId());
                 finish();
 
             }
@@ -83,9 +77,9 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), CreateMeetingActivity.class);
-                intent.putExtra(KEY_USER_ID, userResponse.getId());
-                intent.putExtra(KEY_GAME_ID, gameItem.getId());
-                intent.putExtra(KEY_GAME_TITLE, gameItem.getTitle());
+                intent.putExtra(KEY_USER_ID, user.getId());
+                intent.putExtra(KEY_GAME_ID, game.getId());
+                intent.putExtra(KEY_GAME_TITLE, game.getTitle());
                 startActivity(intent);
 
             }
@@ -95,20 +89,20 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
     @Override
     protected void onResume() {
         super.onResume();
-        gameItemPresenter.getUserGames(userResponse.getId(),gameItem.getId());
+        gameItemPresenter.getUserGames(user.getId(), game.getId());
 
     }
 
     public void update(int userId){
-        gameItemPresenter.getUserGames(userId,gameItem.getId());
+        gameItemPresenter.getUserGames(userId, game.getId());
     }
 
     @Override
-    public void updateMeetings(List<Meeting> meetings,List<Meeting> userMeetings, List<GameCollection> games) {
+    public void updateMeetings(List<Meeting> meetings,List<Meeting> userMeetings, List<Game> games) {
 
-        userResponse.setMeetingSet(userMeetings);
-        userResponse.setGameCollection(games);
-        meetingAdapter = new MeetingAdapter(context, (ArrayList<Meeting>) meetings, userResponse);
+        user.setMeetings(userMeetings);
+        user.setGames(games);
+        meetingAdapter = new MeetingAdapter(context, (ArrayList<Meeting>) meetings, user);
         lvMeetings.setAdapter(meetingAdapter);
         meetingAdapter.notifyDataSetChanged();
     }
@@ -119,7 +113,7 @@ public class GameItemActivity extends AppCompatActivity implements GameItemContr
     }
 
     @Override
-    public void setGames(List<GameCollection> gamesUpd) {
+    public void setGames(List<Game> gamesUpd) {
         updatedListGames = gamesUpd;
 
     }

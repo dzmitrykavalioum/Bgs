@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.interfaces.LoadingView;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.ui.NavBotActivity;
 
 import java.text.SimpleDateFormat;
@@ -33,7 +33,7 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
     private String dateOfBirth;
     private String location;
     private Context context;
-    private UserResponse userResponse;
+    private User user;
     private final Calendar myCalendar = Calendar.getInstance();
     private UpdateUserPresenter updateUserPresenter;
     private LoadingView loadingView;
@@ -46,7 +46,7 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
         setContentView(R.layout.activity_register);
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
-            userResponse = (UserResponse) arguments.getSerializable(UserResponse.class.getSimpleName());
+            user = (User) arguments.getSerializable(User.class.getSimpleName());
             //LifecycleHandler lifecycleHandler = LoaderLifecycleHandler.create(this, getSupportLoaderManager());
             updateUserPresenter = new UpdateUserPresenter(this);
             initViews();
@@ -58,15 +58,15 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
     private void initViews() {
         context = this;
         etLogin = (EditText) findViewById(R.id.etLoginR);
-        etLogin.setText(userResponse.getLogin());
+        etLogin.setText(user.getLogin());
         etPassword = (EditText) findViewById(R.id.etPassword);
-        etPassword.setText(userResponse.getPassword());
+        //etPassword.setText(user.getPassword());
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
-        etConfirmPassword.setText(userResponse.getPassword());
+        //etConfirmPassword.setText(user.getPassword());
         etDateOfBirth = (EditText) findViewById(R.id.etDateOfBirth);
-        etDateOfBirth.setText(userResponse.getDateOfBirth());
+        //etDateOfBirth.setText(user.getDateOfBirth());
         etLocation = (EditText) findViewById(R.id.etLocation);
-        etLocation.setText(userResponse.getLocation());
+        etLocation.setText(user.getCity());
         progressBar = findViewById(R.id.pb_loading_register);
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -96,7 +96,7 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = userResponse.getId();
+                int id = user.getId();
                 String login = etLogin.getText().toString();
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
@@ -124,9 +124,9 @@ public class UpdateUserActivity extends AppCompatActivity implements UpdateUserV
     }
 
     @Override
-    public void updateUserData(UserResponse userResponse) {
+    public void updateUserData(User user) {
         Intent intent = new Intent(this, NavBotActivity.class);
-        intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
+        intent.putExtra(User.class.getSimpleName(), user);
         startActivity(intent);
     }
 

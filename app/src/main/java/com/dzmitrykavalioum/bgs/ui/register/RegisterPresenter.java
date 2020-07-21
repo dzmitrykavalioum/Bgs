@@ -3,7 +3,7 @@ package com.dzmitrykavalioum.bgs.ui.register;
 
 import android.text.TextUtils;
 
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 
 import retrofit2.Call;
@@ -25,12 +25,12 @@ public class RegisterPresenter implements RegisterContract.PresenterContract {
         } else if (!password.equals(confirmPassword)) {
             view.showError("Passwords don't match");
         } else {
-            UserResponse userResponse = new UserResponse();
-            userResponse.setLogin(login);
-            userResponse.setPassword(password);
-            userResponse.setLocation(location);
-            userResponse.setDateOfBirth(dateOfBirth);
-            Call<String> callRegistration = NetworkService.users().registration(userResponse);
+            User user = new User();
+            user.setLogin(login);
+           // userResponse.setPassword(password);
+            user.setCity(location);
+            user.setDateOfBirth(dateOfBirth);
+            Call<String> callRegistration = NetworkService.users().registration(user);
             callRegistration.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {

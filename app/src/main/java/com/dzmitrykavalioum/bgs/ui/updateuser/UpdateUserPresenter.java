@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 
 import retrofit2.Call;
@@ -27,24 +27,29 @@ public class UpdateUserPresenter {
         } else if (!password.equals(confirmPassword)) {
             updateUserView.showErrorNotConfirm();
         } else {
-            UserResponse userResponse = new UserResponse();
-            userResponse.setId(id);
-            userResponse.setLogin(login);
-            userResponse.setPassword(password);
-            userResponse.setLocation(location);
-            userResponse.setDateOfBirth(dateOfBirth);
+            User user = new User();
+            user.setId(id);
+            user.setLogin(login);
+
+            //TODO
+            //change password
+
+            //user.setPassword(password);
+            user.setCity(location);
+            user.setDateOfBirth(dateOfBirth);
             updateUserView.showLoading();                           //show loading process
-            Call<UserResponse> callUpdate = NetworkService.users().update(id,userResponse);
-            callUpdate.enqueue(new Callback<UserResponse>() {
+            Call<User> callUpdate = NetworkService.users().update(id,user);
+            callUpdate.enqueue(new Callback<User>() {
                 @Override
-                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                    UserResponse userResponse = response.body();
+                public void onResponse(Call<User> call, Response<User> response) {
+                    User userResponse = response.body();
+                    
                     updateUserView.updateUserData(userResponse);
                     updateUserView.hideLoading();                   //hide loading process
                 }
 
                 @Override
-                public void onFailure(Call<UserResponse> call, Throwable t) {
+                public void onFailure(Call<User> call, Throwable t) {
 
                 }
             });

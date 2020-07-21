@@ -1,8 +1,8 @@
 package com.dzmitrykavalioum.bgs.ui.gameitem;
 
-import com.dzmitrykavalioum.bgs.model.GameCollection;
+import com.dzmitrykavalioum.bgs.model.Game;
 import com.dzmitrykavalioum.bgs.model.Meeting;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 
 import java.util.List;
 
@@ -12,18 +12,18 @@ public interface GameItemContract {
 
         void getUserGames(int userId, int gameId);
 
-        UserResponse deleteGame(int userId, int gameId);
+        User deleteGame(int userId, int gameId);
 
     }
 
     interface ViewContract {
  //       void updateViews(int userId);
 
-        void updateMeetings(List<Meeting> meetings,List<Meeting> userMeetings, List<GameCollection> games);
+        void updateMeetings(List<Meeting> meetings, List<Meeting> userMeetings, List<Game> games);
 
         void showLoading();
 
-        void setGames(List<GameCollection> gamesUpd);
+        void setGames(List<Game> gamesUpd);
 
         void setMeetings(List<Meeting> meetingsUpd);
 

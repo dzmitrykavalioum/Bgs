@@ -13,8 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.model.GameCollection;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.Game;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.service.NetworkService;
 import com.squareup.picasso.Picasso;
 
@@ -28,14 +28,14 @@ import retrofit2.Response;
 public class GameAdapter extends BaseAdapter {
     private Context ctx;
     private LayoutInflater layoutInflater;
-    private ArrayList<GameCollection> games;
+    private ArrayList<Game> games;
     private Button btn_add;
     private ImageView iv_game;
     private boolean withBtn;
     private int userId;
     private String urlImage;
 
-    public GameAdapter(Context context, ArrayList<GameCollection> listgames, boolean withBtn, int userId) {
+    public GameAdapter(Context context, ArrayList<Game> listgames, boolean withBtn, int userId) {
         ctx = context;
         games = listgames;
         layoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -67,9 +67,9 @@ public class GameAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.item_game, viewGroup, false);
         }
 
-        GameCollection game = getGame(i);
+        Game game = getGame(i);
         ((TextView) view.findViewById(R.id.tv_title_game)).setText(game.getTitle());
-        ((TextView) view.findViewById(R.id.tv_rating_game)).setText(game.getRating().toString());
+        ((TextView) view.findViewById(R.id.tv_rating_game)).setText(game.getRatingValue().toString());
         urlImage = game.getLogo();
         iv_game = view.findViewById(R.id.iv_game);
         Log.i("gameadapter", game.getTitle()+ " "+ urlImage);
@@ -98,24 +98,24 @@ public class GameAdapter extends BaseAdapter {
     }
 
     public void addGame(int userId, int gameId, View view) {
-        Call<UserResponse> addGameCall = NetworkService.users().addGame(userId, gameId);
-        addGameCall.enqueue(new Callback<UserResponse>() {
+        Call<User> addGameCall = NetworkService.users().addGame(userId, gameId);
+        addGameCall.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
 
                 btn_add.setText(R.string.done);
 
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(ctx, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    GameCollection getGame(int i) {
-        return (GameCollection) getItem(i);
+    Game getGame(int i) {
+        return (Game) getItem(i);
     }
 
 }

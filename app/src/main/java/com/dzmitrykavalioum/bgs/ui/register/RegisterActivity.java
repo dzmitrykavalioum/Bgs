@@ -3,10 +3,8 @@ package com.dzmitrykavalioum.bgs.ui.register;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,17 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
-import com.dzmitrykavalioum.bgs.service.NetworkService;
 import com.dzmitrykavalioum.bgs.ui.login.LoginActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterContract.ViewContract {
 

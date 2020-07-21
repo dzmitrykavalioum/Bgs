@@ -1,17 +1,17 @@
 package com.dzmitrykavalioum.bgs.ui.mygames;
 
-import com.dzmitrykavalioum.bgs.model.GameCollection;
+import com.dzmitrykavalioum.bgs.model.Game;
 
 import java.util.List;
 
 public interface MyGamesContract {
 
     interface PresenterContract {
-        List<GameCollection> updateGames(int userId);
+        List<Game> updateGames(int userId);
     }
 
     interface ViewContract {
-        void showGames(List<GameCollection> games);
+        void showGames(List<Game> games);
 
 
 

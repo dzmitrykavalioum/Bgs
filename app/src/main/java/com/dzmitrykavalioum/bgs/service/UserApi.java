@@ -1,15 +1,14 @@
 package com.dzmitrykavalioum.bgs.service;
 
-import com.dzmitrykavalioum.bgs.model.GameCollection;
+import com.dzmitrykavalioum.bgs.model.Game;
 import com.dzmitrykavalioum.bgs.model.Meeting;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -23,13 +22,13 @@ public interface UserApi {
     //user
 
     @GET("user")
-    Call<UserResponse> signIn(@Query("login") String login, @Query("password") String password);
+    Call<User> signIn(@Query("login") String login, @Query("password") String password);
 
     @POST("user")
-    Call<String> registration(@Body UserResponse userResponse);
+    Call<String> registration(@Body User user);
 
     @PUT("user")
-    Call<UserResponse> update(@Query("userId") int id, @Body UserResponse changedUser); //
+    Call<User> update(@Query("userId") int id, @Body User changedUser); //
 
     //meeting
 
@@ -50,19 +49,19 @@ public interface UserApi {
     //game
 
     @GET("gameListPage")
-    Call<List<GameCollection>> unsubscribleGameList(@Query("userId") int userId);
+    Call<List<Game>> unsubscribleGameList(@Query("userId") int userId);
 
     @POST("userGameList")
-    Call<List<GameCollection>> userGameList(@Query("userId") int userId);
+    Call<List<Game>> userGameList(@Query("userId") int userId);
 
     @GET("allGameList")
-    Call<List<GameCollection>> allGameList();
+    Call<List<Game>> allGameList();
 
     @POST("user/game")
-    Call<UserResponse> addGame(@Query("userId") int userId, @Query("gameId") int gameId);
+    Call<User> addGame(@Query("userId") int userId, @Query("gameId") int gameId);
 
     @DELETE("user/game")
-    Call<UserResponse> deleteGame(@Query("userId") int userId, @Query("gameId") int gameId);
+    Call<User> deleteGame(@Query("userId") int userId, @Query("gameId") int gameId);
 
 
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.ui.NavBotActivity;
 import com.dzmitrykavalioum.bgs.ui.register.RegisterActivity;
 
@@ -78,9 +78,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
-    public void openMainScreen(UserResponse userResponse) {
+    public void openMainScreen(User user) {
         Intent intent = new Intent(LoginActivity.this, NavBotActivity.class);
-        intent.putExtra(UserResponse.class.getSimpleName(), userResponse);
+        intent.putExtra(User.class.getSimpleName(), user);
         startActivity(intent);
     }
 

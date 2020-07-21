@@ -1,14 +1,13 @@
 package com.dzmitrykavalioum.bgs.ui.login;
 
-import com.dzmitrykavalioum.bgs.interfaces.LoadingView;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 
 public interface LoginContract {
     interface PresenterContract{
-        UserResponse login(String login, String password);
+        User login(String login, String password);
     }
     interface  ViewContract{
-        void openMainScreen (UserResponse userResponse);
+        void openMainScreen (User user);
 
         void showMessageError(String error);
 

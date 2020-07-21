@@ -13,24 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dzmitrykavalioum.bgs.R;
-import com.dzmitrykavalioum.bgs.adapters.GameAdapter;
 import com.dzmitrykavalioum.bgs.adapters.GameRvAdapter;
-import com.dzmitrykavalioum.bgs.model.GameCollection;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
-import com.dzmitrykavalioum.bgs.service.NetworkService;
+import com.dzmitrykavalioum.bgs.model.Game;
+import com.dzmitrykavalioum.bgs.model.User;
 import com.dzmitrykavalioum.bgs.ui.mygames.MyGamesContract;
 import com.dzmitrykavalioum.bgs.ui.mygames.MyGamesPresenter;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class GamesFragment extends Fragment implements MyGamesContract.ViewContract {
 
-    private UserResponse userResponse;
-    private List<GameCollection> games;
+    private User user;
+    private List<Game> games;
 
     private RecyclerView rvGames;
     private LinearLayoutManager layoutManager;
@@ -50,15 +44,15 @@ public class GamesFragment extends Fragment implements MyGamesContract.ViewContr
         initViews(root);
 
         Bundle bundle = getArguments();
-        userResponse = (UserResponse) bundle.getSerializable(UserResponse.class.getSimpleName());
-        games = myGamesPresenter.updateGames(userResponse.getId());
+        user = (User) bundle.getSerializable(User.class.getSimpleName());
+        games = myGamesPresenter.updateGames(user.getId());
         return root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        games = myGamesPresenter.updateGames(userResponse.getId());
+        games = myGamesPresenter.updateGames(user.getId());
     }
 
     private void initViews(View root) {
@@ -68,9 +62,9 @@ public class GamesFragment extends Fragment implements MyGamesContract.ViewContr
     }
 
     @Override
-    public void showGames(List<GameCollection> games) {
+    public void showGames(List<Game> games) {
         if (games != null) {
-            gameRvAdapter = new GameRvAdapter(games, userResponse.getId(), withBtn);
+            gameRvAdapter = new GameRvAdapter(games, user.getId(), withBtn);
             rvGames.setAdapter(gameRvAdapter);
             rvGames.setLayoutManager(layoutManager);
             rvGames.setItemAnimator(itemAnimator);

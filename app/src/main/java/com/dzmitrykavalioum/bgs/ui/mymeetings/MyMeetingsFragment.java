@@ -1,7 +1,5 @@
 package com.dzmitrykavalioum.bgs.ui.mymeetings;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,9 +13,8 @@ import android.widget.ListView;
 
 import com.dzmitrykavalioum.bgs.R;
 import com.dzmitrykavalioum.bgs.adapters.MeetingAdapter;
-import com.dzmitrykavalioum.bgs.model.GameCollection;
 import com.dzmitrykavalioum.bgs.model.Meeting;
-import com.dzmitrykavalioum.bgs.model.UserResponse;
+import com.dzmitrykavalioum.bgs.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,7 @@ public class MyMeetingsFragment extends Fragment {
 
 
     private List<Meeting> meetings;
-    private UserResponse userResponse;
+    private User user;
     private ListView lv_meetings;
     private MeetingAdapter meetingAdapter;
 
@@ -41,14 +38,14 @@ public class MyMeetingsFragment extends Fragment {
         lv_meetings = (ListView) root.findViewById(R.id.lv_my_meetings);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            userResponse = (UserResponse) bundle.getSerializable(UserResponse.class.getSimpleName());
+            user = (User) bundle.getSerializable(User.class.getSimpleName());
 //            textView.setText(userResponse.getLogin());
 
         }
-        meetings = userResponse.getMeetingSet();
+        meetings = user.getMeetings();
 
         if (meetings != null) {
-            meetingAdapter = new MeetingAdapter(getActivity(),(ArrayList<Meeting>)meetings,userResponse);
+            meetingAdapter = new MeetingAdapter(getActivity(),(ArrayList<Meeting>)meetings, user);
             lv_meetings.setAdapter(meetingAdapter);
 
         }
